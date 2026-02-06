@@ -289,7 +289,7 @@ export default function Home() {
         {/* Footer */}
         <footer className="mt-16 border-t border-[var(--border)] pt-6 pb-8">
           <p className="text-sm text-[var(--muted)]">
-            2024 @ Sanidhya Singh, Copyright
+           @Sanidhya Singh 
           </p>
         </footer>
       </main>
