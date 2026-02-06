@@ -17,10 +17,10 @@ const STORAGE_KEY = "portfolio-theme";
 const VALID_THEMES: ThemeId[] = ["purple-gold", "ironMan", "captainAmerica", "spiderMan", "thor"];
 
 function getStoredTheme(): ThemeId {
-  if (typeof window === "undefined") return "purple-gold";
+  if (typeof window === "undefined") return "ironMan";
   const stored = localStorage.getItem(STORAGE_KEY);
   if (stored && VALID_THEMES.includes(stored as ThemeId)) return stored as ThemeId;
-  return "purple-gold";
+  return "ironMan";
 }
 
 function applyTheme(themeId: ThemeId) {
@@ -32,7 +32,7 @@ function applyTheme(themeId: ThemeId) {
 }
 
 export default function ThemeSwitcher() {
-  const [theme, setTheme] = useState<ThemeId>("purple-gold");
+  const [theme, setTheme] = useState<ThemeId>("ironMan");
   const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -59,8 +59,8 @@ export default function ThemeSwitcher() {
         aria-label="Color theme"
       >
         <span className="flex h-5 w-5 gap-0.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-[#a855f7]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#eab308]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#C1121F]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#D4AF37]" />
         </span>
       </div>
     );

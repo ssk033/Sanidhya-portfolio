@@ -28,7 +28,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){var t=localStorage.getItem("portfolio-theme");if(t)t=t.trim();var v=["purple-gold","ironMan","captainAmerica","spiderMan","thor"];var theme=v.indexOf(t)!==-1?t:"purple-gold";document.documentElement.setAttribute("data-theme",theme);})();`,
+            __html: `(function(){var t=localStorage.getItem("portfolio-theme");if(t)t=t.trim();var v=["purple-gold","ironMan","captainAmerica","spiderMan","thor"];var theme=v.indexOf(t)!==-1?t:"ironMan";document.documentElement.setAttribute("data-theme",theme);})();`,
           }}
         />
       </head>
