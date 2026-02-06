@@ -14,6 +14,10 @@
   --role-color: var(--accent-purple);
   --border: rgba(168, 85, 247, 0.35);
   --surface: #151020;
+  --grid-line: rgba(168, 85, 247, 0.18);
+  --loader-fill: #a855f7;
+  --loader-stroke: #a855f7;
+  --loader-center: #eab308;
 }
 html[data-theme="purple-gold"] {
   --background: #0f0a1a;
@@ -28,6 +32,10 @@ html[data-theme="purple-gold"] {
   --role-color: var(--accent-purple);
   --border: rgba(168, 85, 247, 0.35);
   --surface: #151020;
+  --grid-line: rgba(168, 85, 247, 0.18);
+  --loader-fill: #a855f7;
+  --loader-stroke: #a855f7;
+  --loader-center: #eab308;
 }
 
 /* Theme 2: Iron Man – RED + GOLD only (no blue anywhere) */
@@ -46,6 +54,10 @@ html[data-theme="ironMan"] {
   --skill-glow-sub: rgba(193, 18, 31, 0.4);
   --border: rgba(212, 175, 55, 0.55);
   --role-color: #c1121f;
+  --grid-line: rgba(212, 175, 55, 0.22);
+  --loader-fill: #d4af37;
+  --loader-stroke: #d4af37;
+  --loader-center: #c1121f;
 }
 
 /* Theme 3: Captain America – Red · White · Blue (MCU shield) */
@@ -62,6 +74,10 @@ html[data-theme="captainAmerica"] {
   --skill-glow: rgba(31, 60, 136, 0.5);
   --skill-glow-sub: rgba(177, 18, 38, 0.4);
   --border: rgba(248, 249, 250, 0.35);
+  --grid-line: rgba(248, 249, 250, 0.16);
+  --loader-fill: #1f3c88;
+  --loader-stroke: #1f3c88;
+  --loader-center: #f8f9fa;
 }
 
 /* Theme 4: Spider-Man – RED · BLUE · BLACK (MCU suit) */
@@ -78,6 +94,10 @@ html[data-theme="spiderMan"] {
   --skill-glow: rgba(31, 79, 216, 0.5);
   --skill-glow-sub: rgba(196, 22, 28, 0.35);
   --border: rgba(31, 79, 216, 0.35);
+  --grid-line: rgba(31, 79, 216, 0.18);
+  --loader-fill: #1f4fd8;
+  --loader-stroke: #1f4fd8;
+  --loader-center: #f5f5f5;
 }
 
 /* Theme 5: Thor – BLUE · SILVER · GOLD */
@@ -94,6 +114,10 @@ html[data-theme="thor"] {
   --skill-glow: rgba(59, 130, 246, 0.5);
   --skill-glow-sub: rgba(199, 204, 214, 0.35);
   --border: rgba(59, 130, 246, 0.35);
+  --grid-line: rgba(59, 130, 246, 0.18);
+  --loader-fill: #3b82f6;
+  --loader-stroke: #3b82f6;
+  --loader-center: #d4af37;
 }
 
 @theme inline {
@@ -107,6 +131,66 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* Theme-aware grid background (used by GridBackground component) */
+.grid-bg-lines {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+}
+
+/* Page loader (theme-aware) */
+.loader-frame {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader-frame svg {
+  position: absolute;
+  transition: 0.5s;
+  z-index: calc(1 - (0.2 * var(--j, 0)));
+  transform-origin: center;
+  width: 344px;
+  height: 344px;
+  fill: none;
+}
+.loader-frame:hover svg {
+  transform: rotate(-80deg) skew(30deg) translateX(calc(45px * var(--i, 0))) translateY(calc(-35px * var(--i, 0)));
+}
+.loader-frame svg #center {
+  transition: 0.5s;
+  transform-origin: center;
+}
+.loader-frame:hover svg #center {
+  transform: rotate(-30deg) translateX(45px) translateY(-3px);
+}
+.loader-frame #out2 {
+  animation: loader-rotate 7s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+.loader-frame #out3 {
+  animation: loader-rotate 3s ease-in-out infinite alternate;
+  transform-origin: center;
+  stroke: var(--loader-center);
+}
+.loader-frame #inner3,
+.loader-frame #inner1 {
+  animation: loader-rotate 4s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+.loader-frame #center1 {
+  fill: var(--loader-center);
+  animation: loader-rotate 2s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+@keyframes loader-rotate {
+  to { transform: rotate(360deg); }
 }
 
 /* Gradient text for headings */

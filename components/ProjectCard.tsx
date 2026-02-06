@@ -29,10 +29,10 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   return (
     <CardContainer
-      containerClassName="py-0"
-      className="w-full"
+      containerClassName="py-0 h-full"
+      className="w-full h-full"
     >
-      <CardBody className="group/card relative h-[32rem] w-full max-w-[30rem] rounded-xl border-2 border-[var(--border)] bg-[var(--surface,var(--background))] p-6 transition-[box-shadow,border-color] duration-300 ease-out hover:border-[var(--accent-yellow)]/70 hover:ring-2 hover:ring-[var(--accent-yellow)]/60 hover:ring-offset-2 hover:ring-offset-[var(--background)] hover:shadow-[0_0_32px_var(--card-glow)] flex flex-col">
+      <CardBody className="group/card relative !h-full min-h-0 w-full max-w-[42rem] min-w-0 rounded-xl border-2 border-[var(--border)] bg-[var(--surface,var(--background))] p-6 transition-[box-shadow,border-color] duration-300 ease-out hover:border-[var(--accent-yellow)]/70 hover:ring-2 hover:ring-[var(--accent-yellow)]/60 hover:ring-offset-2 hover:ring-offset-[var(--background)] hover:shadow-[0_0_32px_var(--card-glow)] flex flex-col overflow-visible">
         <CardItem
           translateZ="50"
           className="flex flex-wrap items-start justify-between gap-2"
@@ -77,21 +77,21 @@ export default function ProjectCard({
             </a>
           </CardItem>
         )}
-        <div className="mt-4 flex-1 min-h-0 space-y-3 overflow-y-auto text-sm text-[var(--foreground)]">
-          <CardItem translateZ="40" as="p">
+        <div className="mt-4 flex-1 space-y-3 text-sm text-[var(--foreground)] overflow-visible min-h-0">
+          <CardItem translateZ="40" as="p" className="overflow-visible break-words">
             <strong className="text-[var(--foreground)]">Problem:</strong> {problem}
           </CardItem>
-          <CardItem translateZ="45" as="p">
+          <CardItem translateZ="45" as="p" className="overflow-visible break-words">
             <strong className="text-[var(--foreground)]">What it does:</strong> {whatItDoes}
           </CardItem>
-          <CardItem translateZ="50" as="p">
+          <CardItem translateZ="50" as="p" className="overflow-visible break-words">
             <strong className="text-[var(--foreground)]">Technologies used:</strong>{" "}
             {technologies}
           </CardItem>
-          <CardItem translateZ="55" as="p">
+          <CardItem translateZ="55" as="p" className="overflow-visible break-words">
             <strong className="text-[var(--foreground)]">Key features:</strong> {keyFeatures}
           </CardItem>
-          <CardItem translateZ="60" as="p">
+          <CardItem translateZ="60" as="p" className="overflow-visible break-words">
             <strong className="text-[var(--foreground)]">My role:</strong> {myRole}
           </CardItem>
         </div>

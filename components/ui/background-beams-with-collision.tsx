@@ -72,7 +72,7 @@ export const BackgroundBeamsWithCollision = ({
       ref={parentRef}
       className={cn(
         "h-96 md:h-[40rem] relative flex items-center w-full justify-center overflow-hidden",
-        "bg-gradient-to-b from-[var(--background)] to-[var(--background)]",
+        "bg-transparent",
         className
       )}
     >
@@ -90,7 +90,7 @@ export const BackgroundBeamsWithCollision = ({
         ref={containerRef}
         className="absolute bottom-0 left-0 right-0 w-full pointer-events-none h-12 opacity-90"
         style={{
-          background: "var(--background)",
+          background: "transparent",
           boxShadow:
             "0 -4px 24px rgba(34, 42, 53, 0.08), 0 -1px 0 rgba(255, 255, 255, 0.06) inset",
         }}

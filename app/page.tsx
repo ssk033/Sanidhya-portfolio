@@ -1,5 +1,8 @@
 import CSS3Logo from "@/components/icons/CSS3Logo";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
+import GridBackground from "@/components/ui/grid-background";
+import { IconCloud } from "@/components/ui/icon-cloud";
+import Loader from "@/components/ui/loader";
 import {
   CardBody,
   CardContainer,
@@ -20,24 +23,24 @@ const LINKS = {
   chefAiLive: "https://chef-ai-blond.vercel.app/",
 } as const;
 
-/* Simple Icons slug per skill; layout: row1=5, row2=4, row3=5, row4=4 (centered) */
-const SKILLS: { name: string; icon: string }[] = [
-  { name: "HTML5", icon: "html5" },
-  { name: "CSS", icon: "css3" },
-  { name: "Javascript", icon: "javascript" },
-  { name: "MongoDB", icon: "mongodb" },
-  { name: "React.js", icon: "react" },
-  { name: "Typescript", icon: "typescript" },
-  { name: "Git", icon: "git" },
-  { name: "Figma", icon: "figma" },
-  { name: "Tailwind", icon: "tailwindcss" },
-  { name: "Prisma", icon: "prisma" },
-  { name: "Node.js", icon: "nodedotjs" },
-  { name: "Express.js", icon: "express" },
-  { name: "PostgresSQL", icon: "postgresql" },
-  { name: "Next.js", icon: "nextdotjs" },
-  { name: "Python", icon: "python" },
-  { name: "Java", icon: "openjdk" },
+/* Simple Icons slug + brand color for icon cloud (colored icons) */
+const SKILLS: { name: string; icon: string; color?: string }[] = [
+  { name: "HTML5", icon: "html5", color: "E34F26" },
+  { name: "CSS", icon: "css3", color: "1572B6" },
+  { name: "Javascript", icon: "javascript", color: "F7DF1E" },
+  { name: "MongoDB", icon: "mongodb", color: "47A248" },
+  { name: "React.js", icon: "react", color: "61DAFB" },
+  { name: "Typescript", icon: "typescript", color: "3178C6" },
+  { name: "Git", icon: "git", color: "F05032" },
+  { name: "Figma", icon: "figma", color: "F24E1E" },
+  { name: "Tailwind", icon: "tailwindcss", color: "06B6D4" },
+  { name: "Prisma", icon: "prisma", color: "2D3748" },
+  { name: "Node.js", icon: "nodedotjs", color: "339933" },
+  { name: "Express.js", icon: "express", color: "A1A1AA" },
+  { name: "PostgresSQL", icon: "postgresql", color: "4169E1" },
+  { name: "Next.js", icon: "nextdotjs", color: "E5E5E5" },
+  { name: "Python", icon: "python", color: "3776AB" },
+  { name: "Java", icon: "openjdk", color: "437291" },
 ];
 
 const SKILL_ICON_BASE = "https://cdn.simpleicons.org";
@@ -110,6 +113,10 @@ function InstagramIcon({ className }: { className?: string }) {
 export default function Home() {
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] relative">
+      {/* Theme-aware grid background */}
+      <div className="fixed inset-0 z-0 overflow-hidden">
+        <GridBackground />
+      </div>
       {/* Full-site beams background */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <BackgroundBeamsWithCollision className="!h-full min-h-screen w-full">
@@ -117,7 +124,7 @@ export default function Home() {
         </BackgroundBeamsWithCollision>
       </div>
       <main className="relative z-10 mx-auto max-w-5xl px-6 py-10 md:px-10">
-        {/* Top row: Profile (left) + Skills (right) */}
+        {/* Profile (left) + Skill Cloud (right) */}
         <section className="grid gap-12 pb-12 md:grid-cols-[1fr_1fr] md:gap-8">
           {/* Profile */}
           <div className="flex flex-col items-start">
@@ -204,38 +211,56 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Skills: title centered above grid; 4-3-4-3 with 3-button rows in gaps of 4; no overflow */}
-          <div className="flex w-full flex-col items-center">
-            <h2 className="w-full text-center text-3xl font-bold text-[var(--accent-yellow)] md:text-4xl">
+          {/* Skill Cloud – profile ke right side */}
+          <div className="flex flex-col items-center justify-center">
+            <div className="mt-6 flex w-full justify-center">
+              <IconCloud
+                images={SKILLS.map(
+                  (s) => `${SKILL_ICON_BASE}/${s.icon}/${s.color ?? "ffffff"}`
+                )}
+                className="rounded-lg"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Skills: buttons only – profile ke neeche, projects ke upar */}
+        <section className="border-t border-[var(--border)] pt-10 pb-10">
+          <div className="flex flex-col items-center">
+            <div className="h-px w-16 bg-[var(--accent-purple)]" />
+            <h2 className="mt-2 text-3xl font-bold text-[var(--accent-yellow)] md:text-4xl">
               Skills
             </h2>
-            <div className="mt-6 grid w-full max-w-3xl grid-cols-8 gap-x-4 gap-y-5 sm:gap-x-6 sm:gap-y-6 md:gap-x-6 md:gap-y-6">
+            <div className="mt-1 h-px w-16 bg-[var(--accent-purple)]" />
+          </div>
+          <div className="mt-6 flex w-full justify-center">
+            <div className="grid w-full max-w-3xl grid-cols-8 gap-x-4 gap-y-5 sm:gap-x-6 sm:gap-y-6 md:gap-x-6 md:gap-y-6">
               {SKILLS.map((skill, index) => (
-                  <span
-                    key={skill.name}
-                    role="presentation"
-                    className={`skill-btn inline-flex cursor-default items-center justify-center gap-2 overflow-hidden rounded-full border-2 bg-[var(--background)] px-4 py-3 text-sm font-medium text-[var(--foreground)] sm:min-w-[10.5rem] sm:gap-2.5 sm:px-5 sm:py-3.5 sm:text-base ${getSkillColClass(index)}`}
-                  >
-                    {skill.name === "CSS" ? (
-                      <CSS3Logo className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" />
-                    ) : (
-                      <img
-                        src={`${SKILL_ICON_BASE}/${skill.icon}/ffffff`}
-                        alt=""
-                        className="h-5 w-5 shrink-0 object-contain sm:h-6 sm:w-6"
-                        width={24}
-                        height={24}
-                      />
-                    )}
-                    <span className="whitespace-nowrap">{skill.name}</span>
-                  </span>
+                <span
+                  key={skill.name}
+                  role="presentation"
+                  className={`skill-btn inline-flex cursor-default items-center justify-center gap-2 overflow-hidden rounded-full border-2 bg-[var(--background)] px-4 py-3 text-sm font-medium text-[var(--foreground)] sm:min-w-[10.5rem] sm:gap-2.5 sm:px-5 sm:py-3.5 sm:text-base ${getSkillColClass(index)}`}
+                >
+                  {skill.name === "CSS" ? (
+                    <CSS3Logo className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" />
+                  ) : (
+                    <img
+                      src={`${SKILL_ICON_BASE}/${skill.icon}/${skill.color ?? "ffffff"}`}
+                      alt=""
+                      className="h-5 w-5 shrink-0 object-contain sm:h-6 sm:w-6"
+                      width={24}
+                      height={24}
+                    />
+                  )}
+                  <span className="whitespace-nowrap">{skill.name}</span>
+                </span>
               ))}
             </div>
           </div>
         </section>
 
         {/* Projects */}
-        <section className="border-t border-[var(--border)] pt-10">
+        <section className="border-t border-[var(--border)] pt-10 mt-6">
           <div className="flex flex-col items-center">
             <div className="h-px w-16 bg-[var(--accent-purple)]" />
             <h2 className="mt-2 text-3xl font-bold text-[var(--accent-yellow)] md:text-4xl">
@@ -243,7 +268,7 @@ export default function Home() {
             </h2>
             <div className="mt-1 h-px w-16 bg-[var(--accent-purple)]" />
           </div>
-          <div className="mt-10 grid gap-8 md:grid-cols-2">
+          <div className="mt-10 grid gap-10 md:grid-cols-2 md:items-stretch pb-4">
             <ProjectCard
               title="Zingg — Full Stack Blogging Application"
               githubUrl={LINKS.zingg}
@@ -252,7 +277,7 @@ export default function Home() {
               whatItDoes="Zingg is a full-stack blogging platform where users can create accounts, write and edit posts, and browse a clean feed of articles. Authentication and data are handled securely end-to-end."
               technologies="Next.js, Prisma ORM, NeonDB, TailwindCSS, NextAuth.js, Framer Motion."
               keyFeatures="User authentication (OAuth2), CRUD for blog posts, responsive UI with smooth animations, server-side rendering for performance and SEO, and a PostgreSQL-backed database via Prisma."
-              myRole="Sole developer — designed the architecture, implemented authentication, database schema, API routes, and the front-end UI with a focus on usability and maintainability."
+              myRole="Sole developer designed the architecture, implemented authentication, database schema, API routes, and the front-end UI with a focus on usability and maintainability."
             />
             <ProjectCard
               title="Chef AI — Intelligent Recipe Recommendation Chatbot"
@@ -265,6 +290,7 @@ export default function Home() {
               myRole="Designed and built the recommendation pipeline, integrated sentence transformers for embeddings, implemented the chatbot logic and TTS, and curated and preprocessed the recipe dataset for search."
             />
           </div>
+          <div className="h-16 shrink-0" aria-hidden />
         </section>
 
         {/* Achievements & Additional Info – 3D cards */}
@@ -332,10 +358,11 @@ export default function Home() {
         </section>
 
         {/* Footer */}
-        <footer className="mt-16 border-t border-[var(--border)] pt-6 pb-8">
+        <footer className="mt-16 border-t border-[var(--border)] pt-6 pb-8 flex flex-col items-center gap-4">
           <p className="text-sm text-[var(--muted)]">
            @Sanidhya Singh 
           </p>
+          <Loader className="scale-75" />
         </footer>
       </main>
     </div>
