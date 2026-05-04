@@ -1,123 +1,161 @@
 @import "tailwindcss";
 
-/* Theme 1: Purple & Golden (default). :root = fallback; html[data-theme] overrides. */
+/*
+ * Global theme tokens — canonical names:
+ * --color-primary, --color-accent, --color-glow, --color-border, --color-hover, --color-hover-surface
+ * Legacy aliases (--primary-action, --accent-yellow, etc.) kept for gradual migration / demos.
+ */
+
 :root {
   --background: #0f0a1a;
   --foreground: #fafafa;
-  --accent-yellow: #eab308;
-  --accent-purple: #a855f7;
   --muted: #a1a1aa;
-  --card-glow: rgba(234, 179, 8, 0.4);
-  --skill-glow: rgba(234, 179, 8, 0.5);
-  --skill-glow-sub: rgba(168, 85, 247, 0.4);
-  --primary-action: var(--accent-purple);
-  --role-color: var(--accent-purple);
-  --border: rgba(168, 85, 247, 0.35);
   --surface: #151020;
-  --grid-line: rgba(168, 85, 247, 0.18);
-  --loader-fill: #a855f7;
-  --loader-stroke: #a855f7;
-  --loader-center: #eab308;
+
+  --color-primary: #a855f7;
+  --color-accent: #eab308;
+  --color-glow: rgba(168, 85, 247, 0.22);
+  --color-border: rgba(168, 85, 247, 0.32);
+  --color-hover: #facc15;
+  --color-hover-surface: rgba(168, 85, 247, 0.12);
+
+  --primary-action: var(--color-primary);
+  --accent-yellow: var(--color-accent);
+  --accent-purple: var(--color-primary);
+  --border: var(--color-border);
+  --role-color: var(--color-primary);
+  --card-glow: var(--color-glow);
+  --skill-glow: color-mix(in srgb, var(--color-accent) 35%, var(--color-glow));
+  --skill-glow-sub: color-mix(in srgb, var(--color-primary) 28%, transparent);
+  --grid-line: color-mix(in srgb, var(--color-primary) 11%, transparent);
+  --loader-fill: var(--color-primary);
+  --loader-stroke: var(--color-primary);
+  --loader-center: var(--color-accent);
 }
+
 html[data-theme="purple-gold"] {
   --background: #0f0a1a;
   --foreground: #fafafa;
-  --accent-yellow: #eab308;
-  --accent-purple: #a855f7;
   --muted: #a1a1aa;
-  --card-glow: rgba(234, 179, 8, 0.4);
-  --skill-glow: rgba(234, 179, 8, 0.5);
-  --skill-glow-sub: rgba(168, 85, 247, 0.4);
-  --primary-action: var(--accent-purple);
-  --role-color: var(--accent-purple);
-  --border: rgba(168, 85, 247, 0.35);
   --surface: #151020;
-  --grid-line: rgba(168, 85, 247, 0.18);
-  --loader-fill: #a855f7;
-  --loader-stroke: #a855f7;
-  --loader-center: #eab308;
+  --color-primary: #a855f7;
+  --color-accent: #eab308;
+  --color-glow: rgba(168, 85, 247, 0.22);
+  --color-border: rgba(168, 85, 247, 0.32);
+  --color-hover: #facc15;
+  --color-hover-surface: rgba(168, 85, 247, 0.12);
+  --primary-action: var(--color-primary);
+  --accent-yellow: var(--color-accent);
+  --accent-purple: var(--color-primary);
+  --border: var(--color-border);
+  --role-color: var(--color-primary);
+  --card-glow: var(--color-glow);
+  --skill-glow: color-mix(in srgb, var(--color-accent) 35%, var(--color-glow));
+  --skill-glow-sub: color-mix(in srgb, var(--color-primary) 28%, transparent);
+  --grid-line: color-mix(in srgb, var(--color-primary) 11%, transparent);
+  --loader-fill: var(--color-primary);
+  --loader-stroke: var(--color-primary);
+  --loader-center: var(--color-accent);
 }
 
-/* Theme 2: Iron Man – RED + GOLD only (no blue anywhere) */
 html[data-theme="ironMan"] {
   --background: #0a0a0a;
   --surface: #141414;
   --foreground: #f5f5f5;
   --muted: #a1a1aa;
-  --red: #c1121f;
-  --gold: #d4af37;
-  --accent-yellow: #d4af37;
-  --accent-purple: #d4af37;
-  --primary-action: #c1121f;
-  --card-glow: rgba(212, 175, 55, 0.45);
-  --skill-glow: rgba(212, 175, 55, 0.55);
-  --skill-glow-sub: rgba(193, 18, 31, 0.4);
-  --border: rgba(212, 175, 55, 0.55);
-  --role-color: #c1121f;
-  --grid-line: rgba(212, 175, 55, 0.22);
-  --loader-fill: #d4af37;
-  --loader-stroke: #d4af37;
-  --loader-center: #c1121f;
+  --color-primary: #c1121f;
+  --color-accent: #d4af37;
+  --color-glow: rgba(212, 175, 55, 0.2);
+  --color-border: rgba(212, 175, 55, 0.42);
+  --color-hover: #e85d6a;
+  --color-hover-surface: rgba(193, 18, 31, 0.14);
+  --accent-yellow: var(--color-accent);
+  --accent-purple: var(--color-accent);
+  --primary-action: var(--color-primary);
+  --border: var(--color-border);
+  --role-color: var(--color-primary);
+  --card-glow: var(--color-glow);
+  --skill-glow: color-mix(in srgb, var(--color-accent) 38%, var(--color-glow));
+  --skill-glow-sub: color-mix(in srgb, var(--color-primary) 30%, transparent);
+  --grid-line: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  --loader-fill: var(--color-accent);
+  --loader-stroke: var(--color-accent);
+  --loader-center: var(--color-primary);
 }
 
-/* Theme 3: Captain America – Red · White · Blue (MCU shield) */
 html[data-theme="captainAmerica"] {
   --background: #0b132b;
   --surface: #1c2541;
   --foreground: #e5e7eb;
   --muted: #9ca3af;
+  --color-primary: #1f3c88;
+  --color-accent: #b11226;
+  --color-glow: rgba(31, 60, 136, 0.26);
+  --color-border: rgba(248, 249, 250, 0.26);
+  --color-hover: #f8f9fa;
+  --color-hover-surface: rgba(31, 60, 136, 0.18);
   --accent-yellow: #f8f9fa;
-  --accent-purple: #1f3c88;
-  --primary-action: #1f3c88;
-  --role-color: #b11226;
-  --card-glow: rgba(31, 60, 136, 0.4);
-  --skill-glow: rgba(31, 60, 136, 0.5);
-  --skill-glow-sub: rgba(177, 18, 38, 0.4);
-  --border: rgba(248, 249, 250, 0.35);
-  --grid-line: rgba(248, 249, 250, 0.16);
-  --loader-fill: #1f3c88;
-  --loader-stroke: #1f3c88;
+  --accent-purple: var(--color-primary);
+  --primary-action: var(--color-primary);
+  --border: var(--color-border);
+  --role-color: var(--color-accent);
+  --card-glow: var(--color-glow);
+  --skill-glow: color-mix(in srgb, var(--color-primary) 32%, transparent);
+  --skill-glow-sub: color-mix(in srgb, var(--color-accent) 28%, transparent);
+  --grid-line: color-mix(in srgb, var(--color-primary) 14%, transparent);
+  --loader-fill: var(--color-primary);
+  --loader-stroke: var(--color-primary);
   --loader-center: #f8f9fa;
 }
 
-/* Theme 4: Spider-Man – RED · BLUE · BLACK (MCU suit) */
 html[data-theme="spiderMan"] {
   --background: #0a0a0f;
   --surface: #121826;
   --foreground: #e5e7eb;
   --muted: #9ca3af;
+  --color-primary: #c4161c;
+  --color-accent: #1f4fd8;
+  --color-glow: rgba(196, 22, 28, 0.18);
+  --color-border: rgba(31, 79, 216, 0.34);
+  --color-hover: #4f7df0;
+  --color-hover-surface: rgba(31, 79, 216, 0.12);
   --accent-yellow: #f5f5f5;
-  --accent-purple: #1f4fd8;
-  --primary-action: #c4161c;
-  --role-color: #c4161c;
-  --card-glow: rgba(196, 22, 28, 0.4);
-  --skill-glow: rgba(31, 79, 216, 0.5);
-  --skill-glow-sub: rgba(196, 22, 28, 0.35);
-  --border: rgba(31, 79, 216, 0.35);
-  --grid-line: rgba(31, 79, 216, 0.18);
-  --loader-fill: #1f4fd8;
-  --loader-stroke: #1f4fd8;
+  --accent-purple: var(--color-accent);
+  --primary-action: var(--color-primary);
+  --border: var(--color-border);
+  --role-color: var(--color-primary);
+  --card-glow: var(--color-glow);
+  --skill-glow: color-mix(in srgb, var(--color-accent) 32%, transparent);
+  --skill-glow-sub: color-mix(in srgb, var(--color-primary) 26%, transparent);
+  --grid-line: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  --loader-fill: var(--color-accent);
+  --loader-stroke: var(--color-accent);
   --loader-center: #f5f5f5;
 }
 
-/* Theme 5: Thor – BLUE · SILVER · GOLD */
 html[data-theme="thor"] {
   --background: #0a1026;
   --surface: #141b3a;
   --foreground: #d1d5db;
   --muted: #9ca3af;
-  --accent-yellow: #d4af37;
-  --accent-purple: #3b82f6;
-  --primary-action: #3b82f6;
+  --color-primary: #3b82f6;
+  --color-accent: #d4af37;
+  --color-glow: rgba(59, 130, 246, 0.24);
+  --color-border: rgba(59, 130, 246, 0.36);
+  --color-hover: #60a5fa;
+  --color-hover-surface: rgba(59, 130, 246, 0.14);
+  --accent-yellow: var(--color-accent);
+  --accent-purple: var(--color-primary);
+  --primary-action: var(--color-primary);
+  --border: var(--color-border);
   --role-color: #c7ccd6;
-  --card-glow: rgba(59, 130, 246, 0.4);
-  --skill-glow: rgba(59, 130, 246, 0.5);
-  --skill-glow-sub: rgba(199, 204, 214, 0.35);
-  --border: rgba(59, 130, 246, 0.35);
-  --grid-line: rgba(59, 130, 246, 0.18);
-  --loader-fill: #3b82f6;
-  --loader-stroke: #3b82f6;
-  --loader-center: #d4af37;
+  --card-glow: var(--color-glow);
+  --skill-glow: color-mix(in srgb, var(--color-primary) 34%, transparent);
+  --skill-glow-sub: color-mix(in srgb, var(--color-accent) 26%, transparent);
+  --grid-line: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  --loader-fill: var(--color-primary);
+  --loader-stroke: var(--color-primary);
+  --loader-center: var(--color-accent);
 }
 
 @theme inline {
@@ -133,7 +171,7 @@ body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
-/* Theme-aware grid background (used by GridBackground component) */
+/* Softer grid: lines only, lowered opacity via layered component */
 .grid-bg-lines {
   background-size: 40px 40px;
   background-image:
@@ -141,7 +179,65 @@ body {
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
 }
 
-/* Page loader (theme-aware) */
+/* Portfolio surfaces — flat layout; subtle lift on hover (no 3D tilt) */
+.portfolio-card {
+  border-radius: 1rem;
+  border: 1px solid var(--color-border);
+  background: var(--surface, var(--background));
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 8px 24px -10px rgba(0, 0, 0, 0.38),
+    0 0 36px -18px var(--color-glow);
+  transition:
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.22s ease;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.06),
+    0 16px 36px -14px rgba(0, 0, 0, 0.48),
+    0 0 44px -14px var(--color-glow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-card {
+    transition:
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
+  }
+  .portfolio-card:hover {
+    transform: none;
+  }
+}
+
+.social-icon-btn {
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease,
+    color 0.25s ease;
+}
+
+.social-icon-btn:hover {
+  transform: scale(1.045);
+  border-color: color-mix(in srgb, var(--color-primary) 55%, var(--color-border));
+  background-color: var(--color-hover-surface);
+  box-shadow: 0 0 20px -4px var(--color-glow);
+}
+
+.social-icon-btn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--background),
+    0 0 0 4px color-mix(in srgb, var(--color-primary) 65%, transparent);
+}
+
+/* Page loader */
 .loader-frame {
   position: relative;
   width: 300px;
@@ -190,61 +286,62 @@ body {
   transform-origin: center;
 }
 @keyframes loader-rotate {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-/* Gradient text for headings */
 .text-gradient {
-  background: linear-gradient(to right, var(--accent-yellow), var(--accent-purple));
+  background: linear-gradient(to right, var(--color-accent), var(--color-primary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Skill chips: subtle depth; theme colors preserved */
+/* Skill pills */
 .skill-btn {
-  border-color: var(--border);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease,
-    background 0.2s ease;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
-}
-.skill-btn:hover {
-  transform: translateY(-1px);
-  border-color: color-mix(in oklch, var(--primary-action) 55%, var(--border));
+  border-color: var(--color-border);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
   box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.14),
-    0 0 0 1px color-mix(in oklch, var(--primary-action) 25%, transparent);
-  background: color-mix(in oklch, var(--primary-action) 8%, var(--surface, var(--background)));
+    0 1px 3px rgba(0, 0, 0, 0.14),
+    0 0 24px -10px var(--color-glow);
 }
 
-/* Profile name: glossy, shiny hover – no ring, bright and eye-catching */
+.skill-btn:hover {
+  transform: scale(1.03) translateY(-2px);
+  border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-border));
+  box-shadow:
+    0 6px 20px -6px rgba(0, 0, 0, 0.35),
+    0 0 36px -8px var(--color-glow);
+  background: color-mix(
+    in srgb,
+    var(--color-hover-surface) 90%,
+    var(--surface, var(--background))
+  );
+}
+
 .name-scale {
-  transition: transform 0.3s ease-out, filter 0.3s ease-out, text-shadow 0.3s ease-out;
-}
-.group\/name:hover .name-scale {
-  transform: scale(1.08);
-}
-.group\/name:hover .profile-name-gloss {
-  filter: brightness(1.05);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-.group\/name:hover .profile-name-gloss-sub {
-  filter: brightness(1.05);
-  color: var(--foreground);
+  transition:
+    transform 0.28s ease-out,
+    filter 0.28s ease-out,
+    text-shadow 0.28s ease-out,
+    color 0.28s ease-out;
 }
 
-/* Theme 5: Thor – BLUE · SILVER · GOLD (loaded last so it overrides default) */
-html[data-theme="thor"] {
-  --background: #0a1026;
-  --surface: #141b3a;
-  --foreground: #d1d5db;
-  --muted: #9ca3af;
-  --accent-yellow: #d4af37;
-  --accent-purple: #3b82f6;
-  --primary-action: #3b82f6;
-  --role-color: #c7ccd6;
-  --card-glow: rgba(59, 130, 246, 0.4);
-  --skill-glow: rgba(59, 130, 246, 0.5);
-  --skill-glow-sub: rgba(199, 204, 214, 0.35);
-  --border: rgba(59, 130, 246, 0.35);
+.group\/name:hover .name-scale {
+  transform: scale(1.03);
+}
+
+.group\/name:hover .profile-name-gloss {
+  filter: brightness(1.06);
+  text-shadow: 0 2px 14px color-mix(in srgb, var(--color-glow) 80%, transparent);
+}
+
+.group\/name:hover .profile-name-gloss-sub {
+  filter: brightness(1.04);
+  color: color-mix(in srgb, var(--foreground) 88%, var(--muted));
 }

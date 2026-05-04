@@ -1,68 +1,46 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTheme } from "@/components/providers";
+import type { ThemeId } from "@/lib/theme";
 
-const THEMES = [
+const THEMES: {
+  id: ThemeId;
+  label: string;
+  primary: string;
+  secondary: string;
+}[] = [
   { id: "purple-gold", label: "Purple & Gold", primary: "#a855f7", secondary: "#eab308" },
-  { id: "ironMan", label: "Iron Man", primary: "#C1121F", secondary: "#D4AF37" },
-  { id: "captainAmerica", label: "Captain America", primary: "#1F3C88", secondary: "#B11226" },
-  { id: "spiderMan", label: "Spider-Man", primary: "#C4161C", secondary: "#1F4FD8" },
-  { id: "thor", label: "Thor", primary: "#3B82F6", secondary: "#D4AF37" },
-] as const;
-
-type ThemeId = (typeof THEMES)[number]["id"];
-
-const STORAGE_KEY = "portfolio-theme";
-
-const VALID_THEMES: ThemeId[] = ["purple-gold", "ironMan", "captainAmerica", "spiderMan", "thor"];
-
-function getStoredTheme(): ThemeId {
-  if (typeof window === "undefined") return "ironMan";
-  const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored && VALID_THEMES.includes(stored as ThemeId)) return stored as ThemeId;
-  return "ironMan";
-}
-
-function applyTheme(themeId: ThemeId) {
-  const root = document.documentElement;
-  root.setAttribute("data-theme", themeId);
-  if (typeof document.body !== "undefined") {
-    document.body.setAttribute("data-theme", themeId);
-  }
-}
+  { id: "ironMan", label: "Iron Man", primary: "#c1121f", secondary: "#d4af37" },
+  { id: "captainAmerica", label: "Captain America", primary: "#1f3c88", secondary: "#b11226" },
+  { id: "spiderMan", label: "Spider-Man", primary: "#c4161c", secondary: "#1f4fd8" },
+  { id: "thor", label: "Thor", primary: "#3b82f6", secondary: "#d4af37" },
+];
 
 export default function ThemeSwitcher() {
-  const [theme, setTheme] = useState<ThemeId>("ironMan");
-  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = getStoredTheme();
-    setTheme(stored);
-    applyTheme(stored);
     setMounted(true);
   }, []);
-
-  const selectTheme = (themeId: ThemeId) => {
-    applyTheme(themeId);
-    localStorage.setItem(STORAGE_KEY, themeId);
-    setTheme(themeId);
-    setOpen(false);
-  };
 
   const current = THEMES.find((t) => t.id === theme) ?? THEMES[0];
 
   if (!mounted) {
     return (
-      <div
-        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface,var(--background))]"
+      <button
+        type="button"
+        disabled
+        className="flex h-10 w-10 shrink-0 cursor-default items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--surface,var(--background))] opacity-80"
         aria-label="Color theme"
       >
         <span className="flex h-5 w-5 gap-0.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-[#C1121F]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#D4AF37]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-primary)]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-accent)]" />
         </span>
-      </div>
+      </button>
     );
   }
 
@@ -71,7 +49,7 @@ export default function ThemeSwitcher() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface,var(--background))] text-[var(--foreground)] transition-colors hover:border-[var(--primary-action)]/60 hover:bg-[var(--primary-action)]/10"
+        className="social-icon-btn flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--surface,var(--background))] text-[var(--foreground)]"
         aria-label="Color theme"
         aria-expanded={open}
         aria-haspopup="listbox"
@@ -79,11 +57,11 @@ export default function ThemeSwitcher() {
       >
         <span className="flex h-5 w-5 items-center justify-center gap-0.5">
           <span
-            className="h-2.5 w-2.5 rounded-full border border-white/40"
+            className="h-2.5 w-2.5 rounded-full border border-[var(--color-border)]"
             style={{ backgroundColor: current.primary }}
           />
           <span
-            className="h-2.5 w-2.5 rounded-full border border-white/40"
+            className="h-2.5 w-2.5 rounded-full border border-[var(--color-border)]"
             style={{ backgroundColor: current.secondary }}
           />
         </span>
@@ -97,7 +75,7 @@ export default function ThemeSwitcher() {
             onClick={() => setOpen(false)}
           />
           <div
-            className="absolute right-0 top-full z-20 mt-2 min-w-[11rem] max-h-[80vh] overflow-y-auto rounded-lg border border-[var(--border)] bg-[var(--surface,var(--background))] py-2 shadow-lg"
+            className="absolute right-0 top-full z-20 mt-3 min-w-[13.5rem] max-h-[min(80vh,22rem)] overflow-y-auto rounded-2xl border border-[var(--color-border)] bg-[var(--surface,var(--background))] p-2 shadow-xl shadow-black/25 ring-1 ring-[var(--color-glow)] transition-[box-shadow] duration-300"
             role="listbox"
             aria-label="Select theme"
             onClick={(e) => e.stopPropagation()}
@@ -110,23 +88,29 @@ export default function ThemeSwitcher() {
                 aria-selected={theme === t.id}
                 onClick={(e) => {
                   e.stopPropagation();
-                  selectTheme(t.id);
+                  setTheme(t.id);
+                  setOpen(false);
                 }}
-                className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--primary-action)]/10"
+                className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm text-[var(--foreground)] transition-colors duration-200 hover:bg-[var(--color-hover-surface)]"
               >
-                <span className="flex h-4 w-4 shrink-0 gap-0.5">
+                <span className="flex h-4 w-4 shrink-0 items-center justify-center gap-0.5">
                   <span
-                    className="inline-block h-2 w-2 rounded-full border border-white/30"
+                    className="inline-block h-2 w-2 rounded-full border border-[var(--color-border)] shadow-sm"
                     style={{ backgroundColor: t.primary }}
                   />
                   <span
-                    className="inline-block h-2 w-2 rounded-full border border-white/30"
+                    className="inline-block h-2 w-2 rounded-full border border-[var(--color-border)] shadow-sm"
                     style={{ backgroundColor: t.secondary }}
                   />
                 </span>
-                <span>{t.label}</span>
+                <span className="font-medium">{t.label}</span>
                 {theme === t.id && (
-                  <span className="ml-auto text-[var(--accent-yellow)]">✓</span>
+                  <span
+                    className="ml-auto text-[var(--color-accent)]"
+                    aria-hidden
+                  >
+                    ✓
+                  </span>
                 )}
               </button>
             ))}

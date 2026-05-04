@@ -2,11 +2,6 @@ import CSS3Logo from "@/components/icons/CSS3Logo";
 import GridBackground from "@/components/ui/grid-background";
 import { IconCloud } from "@/components/ui/icon-cloud";
 import Loader from "@/components/ui/loader";
-import {
-  CardBody,
-  CardContainer,
-  CardItem,
-} from "@/components/ui/3d-card";
 import Image from "next/image";
 import ProjectCard from "@/components/ProjectCard";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
@@ -18,8 +13,8 @@ const LINKS = {
   instagram: "https://www.instagram.com/sanidhya.singh12",
   zingg: "https://github.com/ssk033/Zingg",
   zinggLive: "https://zingg-eight.vercel.app/",
-  chefAi: "https://github.com/ssk033/chat_bot_chef",
-  chefAiLive: "https://chef-ai-blond.vercel.app/",
+  mealIt: "https://github.com/ssk033/chat_bot_chef",
+  mealItLive: "https://mealt-it.vercel.app/",
 } as const;
 
 /* Simple Icons slug + brand color for icon cloud (colored icons) */
@@ -116,12 +111,12 @@ export default function Home() {
       <div className="fixed inset-0 z-0 overflow-hidden">
         <GridBackground />
       </div>
-      <main className="relative z-10 mx-auto max-w-5xl px-6 py-10 md:px-10 md:py-14">
+      <main className="relative z-10 mx-auto max-w-5xl space-y-20 px-6 py-12 md:space-y-28 md:px-12 md:py-20">
         {/* Profile (left) + Skill Cloud (right) */}
-        <section className="grid gap-12 pb-12 md:grid-cols-[1fr_1fr] md:gap-8">
+        <section className="grid gap-12 md:grid-cols-[1fr_1fr] md:gap-12 md:items-start">
           {/* Profile */}
           <div className="flex flex-col items-start">
-            <div className="relative mb-5 h-40 w-40 shrink-0 overflow-hidden rounded-full border border-[var(--border)] bg-[var(--surface,var(--background))]">
+            <div className="relative mb-6 h-40 w-40 shrink-0 overflow-hidden rounded-full border border-[var(--color-border)] bg-[var(--surface,var(--background))] shadow-[0_0_40px_-12px_var(--color-glow)]">
               <Image
                 src="/iron-man.jpg"
                 alt="Sanidhya Singh"
@@ -132,16 +127,16 @@ export default function Home() {
               />
             </div>
             <div className="group/name inline-block rounded-lg px-1 py-0.5 transition-all duration-300 ease-out">
-              <h1 className="profile-name-gloss name-scale text-3xl font-semibold tracking-tight text-[var(--foreground)] md:text-4xl">
+              <h1 className="profile-name-gloss name-scale text-4xl font-bold tracking-tight text-[var(--foreground)] md:text-5xl">
                 Sanidhya Singh
               </h1>
-              <p className="profile-name-gloss-sub name-scale mt-2 text-base font-medium text-[var(--muted)] md:text-lg">
+              <p className="profile-name-gloss-sub name-scale mt-3 text-lg font-medium text-[var(--muted)] md:text-xl">
                 Full Stack Developer & CSE Undergrad
               </p>
             </div>
             <p className="mt-4 flex items-center gap-2 text-sm text-[var(--muted)]">
               <svg
-                className="h-4 w-4 shrink-0 text-[var(--primary-action)] opacity-80"
+                className="h-4 w-4 shrink-0 text-[var(--color-primary)] opacity-90"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -157,30 +152,30 @@ export default function Home() {
             </p>
 
             {/* Contact: plain text only */}
-            <div className="mt-4 space-y-1 text-sm text-[var(--foreground)]">
-              <p>
+            <div className="mt-5 space-y-1.5 text-sm leading-relaxed">
+              <p className="text-[var(--foreground)]">
                 <span className="text-[var(--muted)]">Email:</span>{" "}
                 sanidhyasingh1202@gmail.com
               </p>
-              <p>
+              <p className="text-[var(--foreground)]">
                 <span className="text-[var(--muted)]">Phone:</span> +91 99177
                 18512
               </p>
             </div>
 
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-[var(--foreground)]">
+            <p className="mt-5 max-w-md text-[15px] leading-relaxed text-[var(--muted)] md:text-base">
               I am an enthusiast developer just exploring the field and open to
               work, familiar with React.js, TypeScript and many other
               technologies.
             </p>
 
             {/* Social: GitHub, LinkedIn, X, Instagram, theme */}
-            <div className="mt-5 flex items-center gap-3">
+            <div className="mt-7 flex flex-wrap items-center gap-3">
               <a
                 href={LINKS.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface,var(--background))] text-[var(--foreground)] transition-colors hover:border-[var(--primary-action)]/60 hover:bg-[var(--primary-action)]/10"
+                className="social-icon-btn flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--surface,var(--background))] text-[var(--foreground)]"
                 aria-label="GitHub profile"
               >
                 <GitHubIcon className="h-5 w-5" />
@@ -189,7 +184,7 @@ export default function Home() {
                 href={LINKS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface,var(--background))] text-[var(--foreground)] transition-colors hover:border-[var(--primary-action)]/60 hover:bg-[var(--primary-action)]/10"
+                className="social-icon-btn flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--surface,var(--background))] text-[var(--foreground)]"
                 aria-label="LinkedIn profile"
               >
                 <LinkedInIcon className="h-5 w-5" />
@@ -198,7 +193,7 @@ export default function Home() {
                 href={LINKS.x}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface,var(--background))] text-[var(--foreground)] transition-colors hover:border-[var(--primary-action)]/60 hover:bg-[var(--primary-action)]/10"
+                className="social-icon-btn flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--surface,var(--background))] text-[var(--foreground)]"
                 aria-label="X (Twitter) profile"
               >
                 <XIcon className="h-5 w-5" />
@@ -207,7 +202,7 @@ export default function Home() {
                 href={LINKS.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface,var(--background))] text-[var(--foreground)] transition-colors hover:border-[var(--primary-action)]/60 hover:bg-[var(--primary-action)]/10"
+                className="social-icon-btn flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--surface,var(--background))] text-[var(--foreground)]"
                 aria-label="Instagram profile"
               >
                 <InstagramIcon className="h-5 w-5" />
@@ -218,7 +213,7 @@ export default function Home() {
 
           {/* Skill Cloud – profile ke right side */}
           <div className="flex flex-col items-center justify-center">
-            <div className="mt-6 flex w-full justify-center">
+            <div className="mt-8 flex w-full justify-center md:mt-0">
               <IconCloud
                 images={SKILLS.map(
                   (s) => `${SKILL_ICON_BASE}/${s.icon}/${s.color ?? "ffffff"}`
@@ -230,23 +225,23 @@ export default function Home() {
         </section>
 
         {/* Skills: buttons only – profile ke neeche, projects ke upar */}
-        <section className="border-t border-[var(--border)] pt-10 pb-10">
-          <div className="flex flex-col items-center gap-3">
-            <h2 className="text-2xl font-semibold tracking-tight text-[var(--foreground)] md:text-3xl">
+        <section className="border-t border-[var(--color-border)] pt-16 md:pt-20">
+          <div className="flex flex-col items-center gap-4">
+            <h2 className="text-xl font-semibold tracking-tight text-[var(--foreground)] md:text-2xl">
               Skills
             </h2>
             <div
-              className="h-0.5 w-14 rounded-full bg-[var(--primary-action)]"
+              className="h-0.5 w-16 rounded-full bg-[var(--color-primary)] shadow-[0_0_16px_var(--color-glow)]"
               aria-hidden
             />
           </div>
-          <div className="mt-6 flex w-full justify-center">
-            <div className="grid w-full max-w-3xl grid-cols-8 gap-x-4 gap-y-5 sm:gap-x-6 sm:gap-y-6 md:gap-x-6 md:gap-y-6">
+          <div className="mt-10 flex w-full justify-center">
+            <div className="grid w-full max-w-3xl grid-cols-8 gap-x-4 gap-y-6 sm:gap-x-5 sm:gap-y-7 md:gap-x-6 md:gap-y-8">
               {SKILLS.map((skill, index) => (
                 <span
                   key={skill.name}
                   role="presentation"
-                  className={`skill-btn inline-flex cursor-default items-center justify-center gap-2 overflow-hidden rounded-lg border bg-[var(--surface,var(--background))] px-4 py-3 text-sm font-medium text-[var(--foreground)] sm:min-w-[10.5rem] sm:gap-2.5 sm:px-5 sm:py-3.5 sm:text-base ${getSkillColClass(index)}`}
+                  className={`skill-btn inline-flex cursor-default items-center justify-center gap-2 overflow-hidden rounded-full border bg-[var(--surface,var(--background))] px-4 py-2.5 text-sm font-medium text-[var(--foreground)] sm:min-w-[10.5rem] sm:gap-2.5 sm:px-5 sm:py-3 sm:text-[15px] ${getSkillColClass(index)}`}
                 >
                   {skill.name === "CSS" ? (
                     <CSS3Logo className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" />
@@ -267,17 +262,17 @@ export default function Home() {
         </section>
 
         {/* Projects */}
-        <section className="border-t border-[var(--border)] pt-10 mt-6">
-          <div className="flex flex-col items-center gap-3">
-            <h2 className="text-2xl font-semibold tracking-tight text-[var(--foreground)] md:text-3xl">
+        <section className="border-t border-[var(--color-border)] pt-16 md:pt-20">
+          <div className="flex flex-col items-center gap-4">
+            <h2 className="text-xl font-semibold tracking-tight text-[var(--foreground)] md:text-2xl">
               Projects
             </h2>
             <div
-              className="h-0.5 w-14 rounded-full bg-[var(--primary-action)]"
+              className="h-0.5 w-16 rounded-full bg-[var(--color-primary)] shadow-[0_0_16px_var(--color-glow)]"
               aria-hidden
             />
           </div>
-          <div className="mt-10 grid gap-10 md:grid-cols-2 md:items-stretch pb-4">
+          <div className="mt-12 grid gap-8 md:grid-cols-2 md:items-stretch md:gap-10 lg:gap-12">
             <ProjectCard
               title="Zingg — Full Stack Blogging Application"
               githubUrl={LINKS.zingg}
@@ -289,87 +284,84 @@ export default function Home() {
               myRole="Sole developer designed the architecture, implemented authentication, database schema, API routes, and the front-end UI with a focus on usability and maintainability."
             />
             <ProjectCard
-              title="Chef AI — Intelligent Recipe Recommendation Chatbot"
-              githubUrl={LINKS.chefAi}
-              liveUrl={LINKS.chefAiLive}
-              problem="Finding recipes that match what you have at home or your dietary preferences is time-consuming and often requires sifting through many irrelevant results."
-              whatItDoes="Chef AI is a chatbot that recommends recipes using natural language and semantic search. Users can describe ingredients or preferences and get relevant recipe suggestions, with optional text-to-speech for hands-free use."
-              technologies="Python, Sentence Transformers, NLP, semantic search, text-to-speech, Google Colab."
-              keyFeatures="Semantic search over a recipe corpus, conversational interface, NLP-driven understanding of user queries, text-to-speech for recipe steps, and a pipeline built for experimentation in Colab."
-              myRole="Designed and built the recommendation pipeline, integrated sentence transformers for embeddings, implemented the chatbot logic and TTS, and curated and preprocessed the recipe dataset for search."
+              title="Meal-IT!! — Meal Planning & Nutrition Web App"
+              githubUrl={LINKS.mealIt}
+              liveUrl={LINKS.mealItLive}
+              embedLivePreview={false}
+              problem="People juggling meal ideas, macros, and grocery reality often bounce between separate apps for chat advice, planning, and logging—with no single flow from “what should I eat?” to tracked nutrition."
+              whatItDoes="Meal-IT!! brings an AI Chef chat, guided meal-plan flows, a Food Tracker that analyses meal photos, a simple nutrition log, and a floating site-guide assistant into one Next.js app. Recipes live in PostgreSQL with optional embedding-backed similarity for smarter suggestions."
+              technologies="Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, Prisma ORM, PostgreSQL (Neon) with pgvector, Google Gemini (@google/generative-ai), optional Python Food AI service (CNN + HTTP proxy)."
+              keyFeatures="Persisted anonymous Chef sessions; meal-planner chat with locally saved AI drafts; Food Tracker with CNN confidence gating and Gemini vision fallback; nutrition tracker UI; global Gemini site guide; recipe data and embeddings pipeline for RAG-style queries."
+              myRole="Contributor on full-stack delivery: App Router pages and APIs (including food prediction orchestration and Gemini integrations), Prisma/Postgres modelling, and client flows for chat, meal planning, and Food Tracker—alongside teammates covering ML services and broader product work."
             />
           </div>
-          <div className="h-16 shrink-0" aria-hidden />
+          <div className="h-12 shrink-0" aria-hidden />
         </section>
 
         {/* Achievements & Additional Info – 3D cards */}
-        <section className="border-t border-[var(--border)] pt-10">
-          <div className="flex flex-col items-center gap-3">
-            <h2 className="text-2xl font-semibold tracking-tight text-[var(--foreground)] md:text-3xl">
+        <section className="border-t border-[var(--color-border)] pt-16 md:pt-20">
+          <div className="flex flex-col items-center gap-4">
+            <h2 className="text-xl font-semibold tracking-tight text-[var(--foreground)] md:text-2xl">
               Achievements & More
             </h2>
             <div
-              className="h-0.5 w-14 rounded-full bg-[var(--primary-action)]"
+              className="h-0.5 w-16 rounded-full bg-[var(--color-primary)] shadow-[0_0_16px_var(--color-glow)]"
               aria-hidden
             />
           </div>
-          <div className="mt-10 grid gap-8 md:grid-cols-2">
-            <CardContainer containerClassName="py-0" className="w-full">
-              <CardBody className="group/card relative w-full max-w-[30rem] rounded-xl border border-[var(--border)] bg-[var(--surface,var(--background))] p-6 transition-[box-shadow,border-color] duration-300 ease-out hover:border-[var(--primary-action)]/35 hover:shadow-lg">
-                <CardItem translateZ={50} className="mb-4">
-                  <h3 className="text-lg font-semibold tracking-tight text-[var(--foreground)]">
-                    Achievements & Recognitions
-                  </h3>
-                  <div className="mt-2 h-0.5 w-10 rounded-full bg-[var(--primary-action)]/60" />
-                </CardItem>
-                <ul className="space-y-4">
-                  {[
-                    "Achieved All India Rank 18,897 in JEE Advanced 2023 among 1.5 million+ candidates",
-                    "Secured All India Rank 883 in COMEDK 2023",
-                    "Generated 250,000+ organic impressions as geopolitical analyst on X (Twitter) through research-driven content and analytical threads",
-                    "Active contributor to technical and geopolitical discourse with engaged online community",
-                  ].map((text, i) => (
-                    <CardItem key={i} translateZ={40 + i * 5} as="li" className="flex gap-3 text-sm leading-relaxed text-[var(--foreground)]">
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[var(--primary-action)]" aria-hidden />
-                      <span>{text}</span>
-                    </CardItem>
-                  ))}
-                </ul>
-              </CardBody>
-            </CardContainer>
-            <CardContainer containerClassName="py-0" className="w-full">
-              <CardBody className="group/card relative w-full max-w-[30rem] rounded-xl border border-[var(--border)] bg-[var(--surface,var(--background))] p-6 transition-[box-shadow,border-color] duration-300 ease-out hover:border-[var(--primary-action)]/35 hover:shadow-lg">
-                <CardItem translateZ={50} className="mb-4">
-                  <h3 className="text-lg font-semibold tracking-tight text-[var(--foreground)]">
-                    Additional Information
-                  </h3>
-                  <div className="mt-2 h-0.5 w-10 rounded-full bg-[var(--primary-action)]/60" />
-                </CardItem>
-                <div className="space-y-6">
-                  <CardItem translateZ={45} as="div">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
-                      Areas of Interest
-                    </h4>
-                    <p className="mt-2 text-sm leading-relaxed text-[var(--foreground)]">
-                      Scalable Web Technologies, Software Engineering, Geopolitics, Public Policy
-                    </p>
-                  </CardItem>
-                  <CardItem translateZ={50} as="div">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
-                      Languages
-                    </h4>
-                    <p className="mt-2 text-sm leading-relaxed text-[var(--foreground)]">
-                      English (Fluent), Hindi (Native)
-                    </p>
-                  </CardItem>
+          <div className="mt-12 grid gap-8 md:grid-cols-2 md:gap-10 lg:gap-12">
+            <article className="portfolio-card flex w-full flex-col p-6 md:p-7">
+              <header className="border-b border-[var(--color-border)]/50 pb-4">
+                <h3 className="text-lg font-semibold tracking-tight text-[var(--foreground)] md:text-xl">
+                  Achievements & Recognitions
+                </h3>
+                <div className="mt-3 h-0.5 w-12 rounded-full bg-[var(--color-primary)]/50" />
+              </header>
+              <ul className="mt-5 space-y-4">
+                {[
+                  "Achieved All India Rank 18,897 in JEE Advanced 2023 among 1.5 million+ candidates",
+                  "Secured All India Rank 883 in COMEDK 2023",
+                  "Generated 250,000+ organic impressions as geopolitical analyst on X (Twitter) through research-driven content and analytical threads",
+                  "Active contributor to technical and geopolitical discourse with engaged online community",
+                ].map((text, i) => (
+                  <li key={i} className="flex gap-3 text-sm leading-relaxed text-[var(--muted)]">
+                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[var(--color-primary)]/90" aria-hidden />
+                    <span>{text}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+            <article className="portfolio-card flex w-full flex-col p-6 md:p-7">
+              <header className="border-b border-[var(--color-border)]/50 pb-4">
+                <h3 className="text-lg font-semibold tracking-tight text-[var(--foreground)] md:text-xl">
+                  Additional Information
+                </h3>
+                <div className="mt-3 h-0.5 w-12 rounded-full bg-[var(--color-primary)]/50" />
+              </header>
+              <div className="mt-5 space-y-6">
+                <div>
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+                    Areas of Interest
+                  </h4>
+                  <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
+                    Scalable Web Technologies, Software Engineering, Geopolitics, Public Policy
+                  </p>
                 </div>
-              </CardBody>
-            </CardContainer>
+                <div>
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+                    Languages
+                  </h4>
+                  <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
+                    English (Fluent), Hindi (Native)
+                  </p>
+                </div>
+              </div>
+            </article>
           </div>
         </section>
 
         {/* Footer */}
-        <footer className="mt-16 border-t border-[var(--border)] pt-6 pb-8 flex flex-col items-center gap-4">
+        <footer className="border-t border-[var(--color-border)] pt-12 pb-10 flex flex-col items-center gap-5">
           <p className="text-sm text-[var(--muted)]">
             © {new Date().getFullYear()} Sanidhya Singh
           </p>

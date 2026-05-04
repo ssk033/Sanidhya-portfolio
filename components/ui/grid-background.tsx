@@ -16,13 +16,16 @@ export default function GridBackground({
     <div
       className={cn(
         "pointer-events-none absolute inset-0 z-0 min-h-screen w-full bg-[var(--background)]",
-        "grid-bg-lines",
         className,
       )}
     >
+      <div
+        className="absolute inset-0 grid-bg-lines opacity-[0.28] sm:opacity-[0.32]"
+        aria-hidden
+      />
       {withFade && (
         <div
-          className="absolute inset-0 flex items-center justify-center bg-[var(--background)] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,transparent_55%,black)]"
+          className="absolute inset-0 flex items-center justify-center bg-[var(--background)] [mask-image:radial-gradient(ellipse_85%_85%_at_50%_45%,transparent_50%,black)]"
           aria-hidden
         />
       )}
