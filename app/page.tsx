@@ -1,5 +1,4 @@
 import CSS3Logo from "@/components/icons/CSS3Logo";
-import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 import GridBackground from "@/components/ui/grid-background";
 import { IconCloud } from "@/components/ui/icon-cloud";
 import Loader from "@/components/ui/loader";
@@ -117,18 +116,12 @@ export default function Home() {
       <div className="fixed inset-0 z-0 overflow-hidden">
         <GridBackground />
       </div>
-      {/* Full-site beams background */}
-      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <BackgroundBeamsWithCollision className="!h-full min-h-screen w-full">
-          {null}
-        </BackgroundBeamsWithCollision>
-      </div>
-      <main className="relative z-10 mx-auto max-w-5xl px-6 py-10 md:px-10">
+      <main className="relative z-10 mx-auto max-w-5xl px-6 py-10 md:px-10 md:py-14">
         {/* Profile (left) + Skill Cloud (right) */}
         <section className="grid gap-12 pb-12 md:grid-cols-[1fr_1fr] md:gap-8">
           {/* Profile */}
           <div className="flex flex-col items-start">
-            <div className="relative mb-5 h-40 w-40 shrink-0 overflow-hidden rounded-full border-2 border-[var(--border)] bg-gradient-to-br from-[var(--accent-purple)]/40 to-[var(--accent-yellow)]/30">
+            <div className="relative mb-5 h-40 w-40 shrink-0 overflow-hidden rounded-full border border-[var(--border)] bg-[var(--surface,var(--background))]">
               <Image
                 src="/iron-man.jpg"
                 alt="Sanidhya Singh"
@@ -139,15 +132,27 @@ export default function Home() {
               />
             </div>
             <div className="group/name inline-block rounded-lg px-1 py-0.5 transition-all duration-300 ease-out">
-              <h1 className="profile-name-gloss name-scale text-3xl font-bold text-[var(--accent-yellow)] md:text-4xl">
+              <h1 className="profile-name-gloss name-scale text-3xl font-semibold tracking-tight text-[var(--foreground)] md:text-4xl">
                 Sanidhya Singh
               </h1>
-              <p className="profile-name-gloss-sub name-scale mt-1 text-lg font-semibold text-[var(--role-color)]">
+              <p className="profile-name-gloss-sub name-scale mt-2 text-base font-medium text-[var(--muted)] md:text-lg">
                 Full Stack Developer & CSE Undergrad
               </p>
             </div>
-            <p className="mt-3 flex items-center gap-2 text-[var(--muted)]">
-              <span aria-hidden>📍</span>
+            <p className="mt-4 flex items-center gap-2 text-sm text-[var(--muted)]">
+              <svg
+                className="h-4 w-4 shrink-0 text-[var(--primary-action)] opacity-80"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
               <span>Bengaluru, Karnataka, India</span>
             </p>
 
@@ -175,7 +180,7 @@ export default function Home() {
                 href={LINKS.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-[var(--primary-action)]/50 bg-[var(--primary-action)]/10 text-white/90 transition-colors hover:border-[var(--primary-action)] hover:bg-[var(--primary-action)]/25 hover:text-white"
+                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface,var(--background))] text-[var(--foreground)] transition-colors hover:border-[var(--primary-action)]/60 hover:bg-[var(--primary-action)]/10"
                 aria-label="GitHub profile"
               >
                 <GitHubIcon className="h-5 w-5" />
@@ -184,7 +189,7 @@ export default function Home() {
                 href={LINKS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-[var(--primary-action)]/50 bg-[var(--primary-action)]/10 text-white/90 transition-colors hover:border-[var(--primary-action)] hover:bg-[var(--primary-action)]/25 hover:text-white"
+                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface,var(--background))] text-[var(--foreground)] transition-colors hover:border-[var(--primary-action)]/60 hover:bg-[var(--primary-action)]/10"
                 aria-label="LinkedIn profile"
               >
                 <LinkedInIcon className="h-5 w-5" />
@@ -193,7 +198,7 @@ export default function Home() {
                 href={LINKS.x}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-[var(--primary-action)]/50 bg-[var(--primary-action)]/10 text-white/90 transition-colors hover:border-[var(--primary-action)] hover:bg-[var(--primary-action)]/25 hover:text-white"
+                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface,var(--background))] text-[var(--foreground)] transition-colors hover:border-[var(--primary-action)]/60 hover:bg-[var(--primary-action)]/10"
                 aria-label="X (Twitter) profile"
               >
                 <XIcon className="h-5 w-5" />
@@ -202,7 +207,7 @@ export default function Home() {
                 href={LINKS.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-[var(--primary-action)]/50 bg-[var(--primary-action)]/10 text-white/90 transition-colors hover:border-[var(--primary-action)] hover:bg-[var(--primary-action)]/25 hover:text-white"
+                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface,var(--background))] text-[var(--foreground)] transition-colors hover:border-[var(--primary-action)]/60 hover:bg-[var(--primary-action)]/10"
                 aria-label="Instagram profile"
               >
                 <InstagramIcon className="h-5 w-5" />
@@ -226,12 +231,14 @@ export default function Home() {
 
         {/* Skills: buttons only – profile ke neeche, projects ke upar */}
         <section className="border-t border-[var(--border)] pt-10 pb-10">
-          <div className="flex flex-col items-center">
-            <div className="h-px w-16 bg-[var(--accent-purple)]" />
-            <h2 className="mt-2 text-3xl font-bold text-[var(--accent-yellow)] md:text-4xl">
+          <div className="flex flex-col items-center gap-3">
+            <h2 className="text-2xl font-semibold tracking-tight text-[var(--foreground)] md:text-3xl">
               Skills
             </h2>
-            <div className="mt-1 h-px w-16 bg-[var(--accent-purple)]" />
+            <div
+              className="h-0.5 w-14 rounded-full bg-[var(--primary-action)]"
+              aria-hidden
+            />
           </div>
           <div className="mt-6 flex w-full justify-center">
             <div className="grid w-full max-w-3xl grid-cols-8 gap-x-4 gap-y-5 sm:gap-x-6 sm:gap-y-6 md:gap-x-6 md:gap-y-6">
@@ -239,7 +246,7 @@ export default function Home() {
                 <span
                   key={skill.name}
                   role="presentation"
-                  className={`skill-btn inline-flex cursor-default items-center justify-center gap-2 overflow-hidden rounded-full border-2 bg-[var(--background)] px-4 py-3 text-sm font-medium text-[var(--foreground)] sm:min-w-[10.5rem] sm:gap-2.5 sm:px-5 sm:py-3.5 sm:text-base ${getSkillColClass(index)}`}
+                  className={`skill-btn inline-flex cursor-default items-center justify-center gap-2 overflow-hidden rounded-lg border bg-[var(--surface,var(--background))] px-4 py-3 text-sm font-medium text-[var(--foreground)] sm:min-w-[10.5rem] sm:gap-2.5 sm:px-5 sm:py-3.5 sm:text-base ${getSkillColClass(index)}`}
                 >
                   {skill.name === "CSS" ? (
                     <CSS3Logo className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" />
@@ -261,12 +268,14 @@ export default function Home() {
 
         {/* Projects */}
         <section className="border-t border-[var(--border)] pt-10 mt-6">
-          <div className="flex flex-col items-center">
-            <div className="h-px w-16 bg-[var(--accent-purple)]" />
-            <h2 className="mt-2 text-3xl font-bold text-[var(--accent-yellow)] md:text-4xl">
+          <div className="flex flex-col items-center gap-3">
+            <h2 className="text-2xl font-semibold tracking-tight text-[var(--foreground)] md:text-3xl">
               Projects
             </h2>
-            <div className="mt-1 h-px w-16 bg-[var(--accent-purple)]" />
+            <div
+              className="h-0.5 w-14 rounded-full bg-[var(--primary-action)]"
+              aria-hidden
+            />
           </div>
           <div className="mt-10 grid gap-10 md:grid-cols-2 md:items-stretch pb-4">
             <ProjectCard
@@ -295,21 +304,23 @@ export default function Home() {
 
         {/* Achievements & Additional Info – 3D cards */}
         <section className="border-t border-[var(--border)] pt-10">
-          <div className="flex flex-col items-center">
-            <div className="h-px w-16 bg-[var(--accent-purple)]" />
-            <h2 className="mt-2 text-3xl font-bold text-[var(--accent-yellow)] md:text-4xl">
+          <div className="flex flex-col items-center gap-3">
+            <h2 className="text-2xl font-semibold tracking-tight text-[var(--foreground)] md:text-3xl">
               Achievements & More
             </h2>
-            <div className="mt-1 h-px w-16 bg-[var(--accent-purple)]" />
+            <div
+              className="h-0.5 w-14 rounded-full bg-[var(--primary-action)]"
+              aria-hidden
+            />
           </div>
           <div className="mt-10 grid gap-8 md:grid-cols-2">
             <CardContainer containerClassName="py-0" className="w-full">
-              <CardBody className="group/card relative w-full max-w-[30rem] rounded-xl border-2 border-[var(--border)] bg-[var(--surface,var(--background))] p-6 transition-[box-shadow,border-color] duration-300 ease-out hover:border-[var(--accent-yellow)]/70 hover:ring-2 hover:ring-[var(--accent-yellow)]/60 hover:ring-offset-2 hover:ring-offset-[var(--background)] hover:shadow-[0_0_32px_var(--card-glow)]">
+              <CardBody className="group/card relative w-full max-w-[30rem] rounded-xl border border-[var(--border)] bg-[var(--surface,var(--background))] p-6 transition-[box-shadow,border-color] duration-300 ease-out hover:border-[var(--primary-action)]/35 hover:shadow-lg">
                 <CardItem translateZ={50} className="mb-4">
-                  <h3 className="text-lg font-bold text-[var(--accent-yellow)] tracking-tight">
+                  <h3 className="text-lg font-semibold tracking-tight text-[var(--foreground)]">
                     Achievements & Recognitions
                   </h3>
-                  <div className="mt-1 h-0.5 w-12 rounded-full bg-[var(--accent-purple)]/60" />
+                  <div className="mt-2 h-0.5 w-10 rounded-full bg-[var(--primary-action)]/60" />
                 </CardItem>
                 <ul className="space-y-4">
                   {[
@@ -319,7 +330,7 @@ export default function Home() {
                     "Active contributor to technical and geopolitical discourse with engaged online community",
                   ].map((text, i) => (
                     <CardItem key={i} translateZ={40 + i * 5} as="li" className="flex gap-3 text-sm leading-relaxed text-[var(--foreground)]">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-yellow)]" aria-hidden />
+                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[var(--primary-action)]" aria-hidden />
                       <span>{text}</span>
                     </CardItem>
                   ))}
@@ -327,16 +338,16 @@ export default function Home() {
               </CardBody>
             </CardContainer>
             <CardContainer containerClassName="py-0" className="w-full">
-              <CardBody className="group/card relative w-full max-w-[30rem] rounded-xl border-2 border-[var(--border)] bg-[var(--surface,var(--background))] p-6 transition-[box-shadow,border-color] duration-300 ease-out hover:border-[var(--accent-yellow)]/70 hover:ring-2 hover:ring-[var(--accent-yellow)]/60 hover:ring-offset-2 hover:ring-offset-[var(--background)] hover:shadow-[0_0_32px_var(--card-glow)]">
+              <CardBody className="group/card relative w-full max-w-[30rem] rounded-xl border border-[var(--border)] bg-[var(--surface,var(--background))] p-6 transition-[box-shadow,border-color] duration-300 ease-out hover:border-[var(--primary-action)]/35 hover:shadow-lg">
                 <CardItem translateZ={50} className="mb-4">
-                  <h3 className="text-lg font-bold text-[var(--accent-yellow)] tracking-tight">
+                  <h3 className="text-lg font-semibold tracking-tight text-[var(--foreground)]">
                     Additional Information
                   </h3>
-                  <div className="mt-1 h-0.5 w-12 rounded-full bg-[var(--accent-purple)]/60" />
+                  <div className="mt-2 h-0.5 w-10 rounded-full bg-[var(--primary-action)]/60" />
                 </CardItem>
                 <div className="space-y-6">
                   <CardItem translateZ={45} as="div">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent-purple)]">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
                       Areas of Interest
                     </h4>
                     <p className="mt-2 text-sm leading-relaxed text-[var(--foreground)]">
@@ -344,7 +355,7 @@ export default function Home() {
                     </p>
                   </CardItem>
                   <CardItem translateZ={50} as="div">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent-purple)]">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
                       Languages
                     </h4>
                     <p className="mt-2 text-sm leading-relaxed text-[var(--foreground)]">
@@ -360,7 +371,7 @@ export default function Home() {
         {/* Footer */}
         <footer className="mt-16 border-t border-[var(--border)] pt-6 pb-8 flex flex-col items-center gap-4">
           <p className="text-sm text-[var(--muted)]">
-           @Sanidhya Singh 
+            © {new Date().getFullYear()} Sanidhya Singh
           </p>
           <Loader className="scale-75" />
         </footer>

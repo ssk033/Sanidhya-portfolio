@@ -201,24 +201,20 @@ body {
   background-clip: text;
 }
 
-/* Skill button: theme border + glow, 45° rotate on hover */
+/* Skill chips: subtle depth; theme colors preserved */
 .skill-btn {
   border-color: var(--border);
-  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease,
-    background 0.35s ease;
-  box-shadow:
-    0 0 22px 2px var(--skill-glow),
-    0 0 40px 4px var(--skill-glow-sub);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease,
+    background 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
 }
 .skill-btn:hover {
-  transform: rotate(45deg);
-  border-color: var(--accent-yellow);
+  transform: translateY(-1px);
+  border-color: color-mix(in oklch, var(--primary-action) 55%, var(--border));
   box-shadow:
-    0 0 0 2px var(--accent-yellow),
-    0 0 28px 6px var(--skill-glow),
-    0 0 56px 12px var(--skill-glow-sub),
-    0 4px 12px rgba(0, 0, 0, 0.25);
-  background: color-mix(in oklch, var(--accent-yellow) 12%, var(--background));
+    0 4px 12px rgba(0, 0, 0, 0.14),
+    0 0 0 1px color-mix(in oklch, var(--primary-action) 25%, transparent);
+  background: color-mix(in oklch, var(--primary-action) 8%, var(--surface, var(--background)));
 }
 
 /* Profile name: glossy, shiny hover – no ring, bright and eye-catching */
@@ -229,20 +225,12 @@ body {
   transform: scale(1.08);
 }
 .group\/name:hover .profile-name-gloss {
-  filter: brightness(1.3);
-  text-shadow:
-    0 0 16px var(--accent-yellow),
-    0 0 32px var(--accent-yellow),
-    0 1px 0 rgba(255, 255, 255, 0.5),
-    0 2px 8px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.05);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 .group\/name:hover .profile-name-gloss-sub {
-  filter: brightness(1.25);
-  text-shadow:
-    0 0 12px var(--accent-purple),
-    0 0 24px var(--accent-purple),
-    0 1px 0 rgba(255, 255, 255, 0.4),
-    0 2px 6px rgba(0, 0, 0, 0.15);
+  filter: brightness(1.05);
+  color: var(--foreground);
 }
 
 /* Theme 5: Thor – BLUE · SILVER · GOLD (loaded last so it overrides default) */

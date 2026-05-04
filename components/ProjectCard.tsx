@@ -32,12 +32,12 @@ export default function ProjectCard({
       containerClassName="py-0 h-full"
       className="w-full h-full"
     >
-      <CardBody className="group/card relative !h-full min-h-0 w-full max-w-[42rem] min-w-0 rounded-xl border-2 border-[var(--border)] bg-[var(--surface,var(--background))] p-6 transition-[box-shadow,border-color] duration-300 ease-out hover:border-[var(--accent-yellow)]/70 hover:ring-2 hover:ring-[var(--accent-yellow)]/60 hover:ring-offset-2 hover:ring-offset-[var(--background)] hover:shadow-[0_0_32px_var(--card-glow)] flex flex-col overflow-visible">
+      <CardBody className="group/card relative !h-full min-h-0 w-full max-w-[42rem] min-w-0 rounded-xl border border-[var(--border)] bg-[var(--surface,var(--background))] p-6 transition-[box-shadow,border-color] duration-300 ease-out hover:border-[var(--primary-action)]/35 hover:shadow-lg flex flex-col overflow-visible">
         <CardItem
           translateZ="50"
           className="flex flex-wrap items-start justify-between gap-2"
         >
-          <h3 className="text-lg font-semibold text-[var(--accent-yellow)]">
+          <h3 className="text-lg font-semibold text-[var(--foreground)]">
             {title}
           </h3>
           <CardItem
@@ -46,7 +46,7 @@ export default function ProjectCard({
             href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="shrink-0 text-sm font-medium text-[var(--accent-purple)] underline underline-offset-2 transition-colors hover:text-[var(--accent-yellow)]"
+            className="shrink-0 text-sm font-medium text-[var(--primary-action)] underline underline-offset-2 transition-colors hover:opacity-90"
           >
             View on GitHub →
           </CardItem>
@@ -57,7 +57,7 @@ export default function ProjectCard({
               href={liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="block overflow-hidden rounded-lg border-2 border-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-yellow)]"
+              className="block overflow-hidden rounded-lg border border-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-action)]/40"
               aria-label="View live site preview"
             >
               <iframe
@@ -71,7 +71,7 @@ export default function ProjectCard({
               href={liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-1.5 inline-block text-xs font-medium text-[var(--accent-purple)] underline underline-offset-2 hover:text-[var(--accent-yellow)]"
+              className="mt-1.5 inline-block text-xs font-medium text-[var(--primary-action)] underline underline-offset-2 hover:opacity-90"
             >
               Open live site →
             </a>

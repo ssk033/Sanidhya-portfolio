@@ -55,7 +55,7 @@ export default function ThemeSwitcher() {
   if (!mounted) {
     return (
       <div
-        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-white/30 bg-white/5"
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface,var(--background))]"
         aria-label="Color theme"
       >
         <span className="flex h-5 w-5 gap-0.5">
@@ -71,7 +71,7 @@ export default function ThemeSwitcher() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border-2 border-[var(--primary-action)]/50 bg-[var(--primary-action)]/10 text-white/90 transition-colors hover:border-[var(--primary-action)] hover:bg-[var(--primary-action)]/25 hover:text-white"
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface,var(--background))] text-[var(--foreground)] transition-colors hover:border-[var(--primary-action)]/60 hover:bg-[var(--primary-action)]/10"
         aria-label="Color theme"
         aria-expanded={open}
         aria-haspopup="listbox"
@@ -97,7 +97,7 @@ export default function ThemeSwitcher() {
             onClick={() => setOpen(false)}
           />
           <div
-            className="absolute right-0 top-full z-20 mt-2 min-w-[11rem] max-h-[80vh] overflow-y-auto rounded-lg border-2 border-[var(--border)] bg-[var(--surface,var(--background))] py-2 shadow-xl"
+            className="absolute right-0 top-full z-20 mt-2 min-w-[11rem] max-h-[80vh] overflow-y-auto rounded-lg border border-[var(--border)] bg-[var(--surface,var(--background))] py-2 shadow-lg"
             role="listbox"
             aria-label="Select theme"
             onClick={(e) => e.stopPropagation()}
