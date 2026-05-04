@@ -171,12 +171,123 @@ body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
-/* Softer grid: lines only, lowered opacity via layered component */
+/* Layer 1: deep BR gradient + theme tint (~6–7%) — reads richer than flat bg */
+.page-bg-base-layer {
+  background-color: var(--background);
+  background-image: linear-gradient(
+    to bottom right,
+    color-mix(in srgb, var(--background) 94%, black),
+    color-mix(in srgb, var(--surface, var(--background)) 82%, var(--background)),
+    color-mix(
+      in srgb,
+      var(--color-primary) 7%,
+      color-mix(in srgb, var(--background) 93%, black)
+    )
+  );
+  background-size: 175% 175%;
+  animation: page-bg-gradient-drift 26s ease-in-out infinite alternate;
+}
+
+@keyframes page-bg-gradient-drift {
+  0% {
+    background-position: 6% 32%;
+  }
+  100% {
+    background-position: 94% 68%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-bg-base-layer {
+    animation: none;
+    background-size: 100% 100%;
+    background-position: 50% 50%;
+  }
+}
+
+/* Layer 2: ultra-slow blob drift (scale / translate only — opacity stays in JSX) */
+.page-bg-glow-blob-primary {
+  animation: page-bg-glow-primary 29s ease-in-out infinite alternate;
+}
+
+.page-bg-glow-blob-accent {
+  animation: page-bg-glow-accent 31s ease-in-out infinite alternate;
+}
+
+@keyframes page-bg-glow-primary {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(2.8%, 2%, 0) scale(1.06);
+  }
+}
+
+@keyframes page-bg-glow-accent {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(-2.5%, -2.2%, 0) scale(1.07);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-bg-glow-blob-primary,
+  .page-bg-glow-blob-accent {
+    animation: none;
+  }
+}
+
+/* Soft lift at focal center — stops middle from feeling empty */
+.page-bg-mid-light {
+  background: radial-gradient(
+    circle at 50% 46%,
+    rgba(255, 255, 255, 0.032),
+    transparent 60%
+  );
+}
+
+/* Edge darkening — depth without crushing content (noise sits above) */
+.page-bg-vignette {
+  background: radial-gradient(
+    ellipse 115% 95% at 50% 48%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+}
+
+/* Grain 4–6% — overlay blend, premium matte */
+.page-bg-noise {
+  opacity: 0.052;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 220px 220px;
+}
+
+/*
+ * Grid paint: `--grid-line` + extra primary so lines read as theme-linked, not gray.
+ * Consumed only by `.grid-bg-lines`.
+ */
 .grid-bg-lines {
+  --grid-line-paint: color-mix(
+    in srgb,
+    var(--grid-line) 58%,
+    color-mix(in srgb, var(--color-primary) 16%, transparent)
+  );
   background-size: 40px 40px;
   background-image:
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    linear-gradient(
+      to right,
+      var(--grid-line-paint) 0.5px,
+      transparent 0.5px
+    ),
+    linear-gradient(
+      to bottom,
+      var(--grid-line-paint) 0.5px,
+      transparent 0.5px
+    );
 }
 
 /* Portfolio cards — glass surface, minimal idle glow; lift + glow on hover only */

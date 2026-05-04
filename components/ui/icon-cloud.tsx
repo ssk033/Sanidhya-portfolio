@@ -23,6 +23,8 @@ function easeOutCubic(t: number): number {
 }
 
 export function IconCloud({ icons, images, className }: IconCloudProps) {
+  const CLOUD_RADIUS = 86
+  const ICON_BASE_OPACITY = 0.78
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [iconPositions, setIconPositions] = useState<Icon[]>([])
   const [rotation, setRotation] = useState({ x: 0, y: 0 })
@@ -96,9 +98,9 @@ export function IconCloud({ icons, images, className }: IconCloudProps) {
       const x = Math.cos(phi) * r
       const z = Math.sin(phi) * r
       newIcons.push({
-        x: x * 100,
-        y: y * 100,
-        z: z * 100,
+        x: x * CLOUD_RADIUS,
+        y: y * CLOUD_RADIUS,
+        z: z * CLOUD_RADIUS,
         scale: 1,
         opacity: 1,
         id: i,
@@ -137,7 +139,7 @@ export function IconCloud({ icons, images, className }: IconCloudProps) {
         const distance = Math.sqrt(
           Math.pow(targetX - currentX, 2) + Math.pow(targetY - currentY, 2)
         )
-        const duration = Math.min(2000, Math.max(800, distance * 1000))
+        const duration = Math.min(3200, Math.max(1400, distance * 1450))
         setTargetRotation({
           x: targetX,
           y: targetY,
@@ -163,8 +165,8 @@ export function IconCloud({ icons, images, className }: IconCloudProps) {
       const deltaX = e.clientX - lastMousePos.x
       const deltaY = e.clientY - lastMousePos.y
       rotationRef.current = {
-        x: rotationRef.current.x + deltaY * 0.002,
-        y: rotationRef.current.y + deltaX * 0.002,
+        x: rotationRef.current.x + deltaY * 0.0012,
+        y: rotationRef.current.y + deltaX * 0.0012,
       }
       setLastMousePos({ x: e.clientX, y: e.clientY })
     }
@@ -184,7 +186,7 @@ export function IconCloud({ icons, images, className }: IconCloudProps) {
       const dx = mousePos.x - centerX
       const dy = mousePos.y - centerY
       const distance = Math.sqrt(dx * dx + dy * dy)
-      const speed = 0.003 + (distance / maxDistance) * 0.01
+      const speed = 0.0009 + (distance / maxDistance) * 0.0022
       if (targetRotation) {
         const elapsed = performance.now() - targetRotation.startTime
         const progress = Math.min(1, elapsed / targetRotation.duration)
@@ -213,11 +215,12 @@ export function IconCloud({ icons, images, className }: IconCloudProps) {
         const rotatedZ = icon.x * sinY + icon.z * cosY
         const rotatedY = icon.y * cosX + rotatedZ * sinX
         const scale = (rotatedZ + 200) / 300
-        const opacity = Math.max(0.2, Math.min(1, (rotatedZ + 150) / 200))
+        const opacity = Math.max(0.18, Math.min(0.82, (rotatedZ + 145) / 230))
         ctx.save()
         ctx.translate(canvas.width / 2 + rotatedX, canvas.height / 2 + rotatedY)
         ctx.scale(scale, scale)
-        ctx.globalAlpha = opacity
+        ctx.globalAlpha = opacity * ICON_BASE_OPACITY
+        ctx.filter = "saturate(0.82)"
         if (icons || images) {
           if (
             iconCanvasesRef.current[index] &&
@@ -238,6 +241,25 @@ export function IconCloud({ icons, images, className }: IconCloudProps) {
         }
         ctx.restore()
       })
+
+      // Edge fade so the globe feels ambient, not dominant.
+      const edgeFade = ctx.createRadialGradient(
+        centerX,
+        centerY,
+        canvas.width * 0.24,
+        centerX,
+        centerY,
+        canvas.width * 0.5
+      )
+      edgeFade.addColorStop(0, "rgba(0,0,0,1)")
+      edgeFade.addColorStop(0.74, "rgba(0,0,0,0.92)")
+      edgeFade.addColorStop(1, "rgba(0,0,0,0)")
+      ctx.save()
+      ctx.globalCompositeOperation = "destination-in"
+      ctx.fillStyle = edgeFade
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      ctx.restore()
+
       animationFrameRef.current = requestAnimationFrame(animate)
     }
     animate()

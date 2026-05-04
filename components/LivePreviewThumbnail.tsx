@@ -6,6 +6,8 @@ type LivePreviewThumbnailProps = {
   liveUrl: string;
   title: string;
   className?: string;
+  /** Override screenshot sizing (default tuned for compact cards). */
+  imgClassName?: string;
 };
 
 /**
@@ -16,6 +18,7 @@ export function LivePreviewThumbnail({
   liveUrl,
   title,
   className,
+  imgClassName,
 }: LivePreviewThumbnailProps) {
   const [failed, setFailed] = useState(false);
   const src = `https://s.wordpress.com/mshots/v1/${encodeURIComponent(liveUrl)}?w=1600`;
@@ -51,7 +54,10 @@ export function LivePreviewThumbnail({
         loading="lazy"
         referrerPolicy="no-referrer"
         decoding="async"
-        className="h-[11rem] w-full origin-center object-cover object-top transition-transform duration-200 group-hover:scale-[1.02] sm:h-[13rem]"
+        className={
+          imgClassName ??
+          "h-[11rem] w-full origin-center object-cover object-top transition-transform duration-200 group-hover:scale-[1.02] sm:h-[13rem]"
+        }
         onError={() => setFailed(true)}
       />
       <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/55 to-transparent px-3 py-2 text-center text-[11px] font-medium text-white/95 opacity-0 transition-opacity duration-200 group-hover:opacity-100 sm:text-xs">

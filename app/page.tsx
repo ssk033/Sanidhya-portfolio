@@ -1,10 +1,9 @@
 import CSS3Logo from "@/components/icons/CSS3Logo";
 import GridBackground from "@/components/ui/grid-background";
-import { IconCloud } from "@/components/ui/icon-cloud";
 import Loader from "@/components/ui/loader";
 import Image from "next/image";
 import { SectionHeading } from "@/components/portfolio/SectionHeading";
-import ProjectCard from "@/components/ProjectCard";
+import ProjectCard, { type ProjectCardProps } from "@/components/ProjectCard";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 const LINKS = {
@@ -18,7 +17,42 @@ const LINKS = {
   mealItLive: "https://mealt-it.vercel.app/",
 } as const;
 
-/* Simple Icons slug + brand color for icon cloud (colored icons) */
+const PROJECTS: ProjectCardProps[] = [
+  {
+    title: "Zingg — Full Stack Blogging Application",
+    githubUrl: LINKS.zingg,
+    liveUrl: LINKS.zinggLive,
+    livePreviewStyle: "thumbnail",
+    problem:
+      "Many readers and writers lack a simple, modern place to publish articles and discover content without the noise of generic social feeds.",
+    whatItDoes:
+      "Zingg is a full-stack blogging platform where users can create accounts, write and edit posts, and browse a clean feed of articles. Authentication and data are handled securely end-to-end.",
+    technologies:
+      "Next.js, Prisma ORM, NeonDB, TailwindCSS, NextAuth.js, Framer Motion.",
+    keyFeatures:
+      "User authentication (OAuth2), CRUD for blog posts, responsive UI with smooth animations, server-side rendering for performance and SEO, and a PostgreSQL-backed database via Prisma.",
+    myRole:
+      "Sole developer designed the architecture, implemented authentication, database schema, API routes, and the front-end UI with a focus on usability and maintainability.",
+  },
+  {
+    title: "Meal-IT!! — Meal Planning & Nutrition Web App",
+    githubUrl: LINKS.mealIt,
+    liveUrl: LINKS.mealItLive,
+    livePreviewStyle: "thumbnail",
+    problem:
+      "People juggling meal ideas, macros, and grocery reality often bounce between separate apps for chat advice, planning, and logging—with no single flow from “what should I eat?” to tracked nutrition.",
+    whatItDoes:
+      "Meal-IT!! brings an AI Chef chat, guided meal-plan flows, a Food Tracker that analyses meal photos, a simple nutrition log, and a floating site-guide assistant into one Next.js app. Recipes live in PostgreSQL with optional embedding-backed similarity for smarter suggestions.",
+    technologies:
+      "Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, Prisma ORM, PostgreSQL (Neon) with pgvector, Google Gemini (@google/generative-ai), optional Python Food AI service (CNN + HTTP proxy).",
+    keyFeatures:
+      "Persisted anonymous Chef sessions; meal-planner chat with locally saved AI drafts; Food Tracker with CNN confidence gating and Gemini vision fallback; nutrition tracker UI; global Gemini site guide; recipe data and embeddings pipeline for RAG-style queries.",
+    myRole:
+      "Contributor on full-stack delivery: App Router pages and APIs (including food prediction orchestration and Gemini integrations), Prisma/Postgres modelling, and client flows for chat, meal planning, and Food Tracker—alongside teammates covering ML services and broader product work.",
+  },
+];
+
+/* Skills data reused in hero and full skills section */
 const SKILLS: { name: string; icon: string; color?: string }[] = [
   { name: "HTML5", icon: "html5", color: "E34F26" },
   { name: "CSS", icon: "css3", color: "1572B6" },
@@ -39,19 +73,6 @@ const SKILLS: { name: string; icon: string; color?: string }[] = [
 ];
 
 const SKILL_ICON_BASE = "https://cdn.simpleicons.org";
-
-/* 8-col grid: 4 buttons span 2 cols each; 3-button rows sit in gaps (col-start-2,4,6) */
-function getSkillColClass(index: number): string {
-  if (index === 4) return "col-start-2 col-span-2";
-  if (index === 5) return "col-start-4 col-span-2";
-  if (index === 6) return "col-start-6 col-span-2";
-  if (index === 11) return "col-start-2 col-span-2";
-  if (index === 12) return "col-start-4 col-span-2";
-  if (index === 13) return "col-start-6 col-span-2";
-  if (index === 14) return "col-start-3 col-span-2";
-  if (index === 15) return "col-start-5 col-span-2";
-  return "col-span-2";
-}
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
@@ -112,30 +133,30 @@ export default function Home() {
       <div className="fixed inset-0 z-0 overflow-hidden">
         <GridBackground />
       </div>
-      <main className="relative z-10 mx-auto max-w-5xl space-y-20 px-6 py-14 md:space-y-24 md:px-12 md:py-24">
-        {/* Profile (left) + Skill Cloud (right) */}
-        <section className="grid gap-12 md:grid-cols-[1fr_1fr] md:gap-12 md:items-start">
+      <main className="relative z-10 mx-auto max-w-5xl space-y-12 px-6 py-8 md:space-y-14 md:px-12 md:py-11">
+        {/* Profile (left) + Skills (right) */}
+        <section className="grid grid-cols-1 items-center gap-10 md:grid-cols-2">
           {/* Profile */}
           <div className="flex flex-col items-start">
-            <div className="relative mb-6 h-40 w-40 shrink-0 overflow-hidden rounded-full border border-[var(--color-border)] bg-[var(--surface,var(--background))] shadow-[0_0_40px_-12px_var(--color-glow)]">
+            <div className="relative mb-4 h-36 w-36 shrink-0 overflow-hidden rounded-full border border-[var(--color-border)] bg-[var(--surface,var(--background))] shadow-[0_0_40px_-12px_var(--color-glow)] md:h-40 md:w-40">
               <Image
                 src="/iron-man.jpg"
                 alt="Sanidhya Singh"
                 fill
                 className="object-cover"
-                sizes="160px"
+                sizes="144px"
                 priority
               />
             </div>
             <div className="group/name inline-block rounded-lg px-1 py-0.5 transition-all duration-300 ease-out">
-              <h1 className="profile-name-gloss name-scale text-5xl font-semibold tracking-tight text-[var(--foreground)] md:text-6xl md:tracking-tight">
+              <h1 className="profile-name-gloss name-scale text-4xl font-semibold tracking-tight text-[var(--foreground)] md:text-5xl md:tracking-tight">
                 Sanidhya Singh
               </h1>
-              <p className="profile-name-gloss-sub name-scale mt-3 text-lg font-medium text-[var(--muted)] md:text-xl">
+              <p className="profile-name-gloss-sub name-scale mt-2 text-base font-medium leading-snug text-[var(--muted)] md:text-lg">
                 Full Stack Developer & CSE Undergrad
               </p>
             </div>
-            <p className="mt-4 flex items-center gap-2 text-sm text-[var(--muted)]">
+            <p className="mt-2.5 flex items-center gap-2 text-sm leading-snug text-[var(--muted)]">
               <svg
                 className="h-4 w-4 shrink-0 text-[var(--color-primary)] opacity-90"
                 viewBox="0 0 24 24"
@@ -153,7 +174,7 @@ export default function Home() {
             </p>
 
             {/* Contact: plain text only */}
-            <div className="mt-5 space-y-1.5 text-sm leading-relaxed">
+            <div className="mt-3 space-y-1 text-sm leading-snug">
               <p className="text-[var(--muted)]">
                 <span className="font-medium text-[color-mix(in_srgb,var(--foreground)_55%,var(--muted))]">
                   Email:
@@ -168,14 +189,14 @@ export default function Home() {
               </p>
             </div>
 
-            <p className="mt-6 max-w-md text-[15px] leading-relaxed text-[var(--muted)] md:text-base md:leading-relaxed">
+            <p className="mt-4 max-w-md text-[14px] leading-snug text-[var(--muted)] md:text-[15px] md:leading-relaxed">
               I am an enthusiast developer just exploring the field and open to
               work, familiar with React.js, TypeScript and many other
               technologies.
             </p>
 
             {/* Social: GitHub, LinkedIn, X, Instagram, theme */}
-            <div className="mt-7 flex flex-wrap items-center gap-3">
+            <div className="mt-5 flex flex-wrap items-center gap-2.5">
               <a
                 href={LINKS.github}
                 target="_blank"
@@ -216,115 +237,87 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Skill Cloud – profile ke right side */}
-          <div className="flex flex-col items-center justify-center">
-            <div className="mt-8 flex w-full justify-center md:mt-0">
-              <IconCloud
-                images={SKILLS.map(
-                  (s) => `${SKILL_ICON_BASE}/${s.icon}/${s.color ?? "ffffff"}`
-                )}
-                className="rounded-lg"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Skills: buttons only – profile ke neeche, projects ke upar */}
-        <section className="border-t border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pt-20 md:pt-24">
-          <SectionHeading title="Skills" />
-          <div className="mt-12 flex w-full justify-center">
-            <div className="grid w-full max-w-3xl grid-cols-8 gap-x-3 gap-y-4 sm:gap-x-4 sm:gap-y-4 md:gap-x-5 md:gap-y-5">
-              {SKILLS.map((skill, index) => (
-                <span
-                  key={skill.name}
-                  role="presentation"
-                  className={`skill-btn inline-flex cursor-default items-center justify-center gap-2 overflow-hidden rounded-full border bg-[color-mix(in_srgb,var(--surface,var(--background))_88%,transparent)] px-4 py-2 text-sm font-medium text-[var(--foreground)] backdrop-blur-sm sm:min-w-[10.5rem] sm:gap-2.5 sm:px-4 sm:py-2 sm:text-[15px] ${getSkillColClass(index)}`}
-                >
-                  {skill.name === "CSS" ? (
-                    <CSS3Logo className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" />
-                  ) : (
-                    <img
-                      src={`${SKILL_ICON_BASE}/${skill.icon}/${skill.color ?? "ffffff"}`}
-                      alt=""
-                      className="h-5 w-5 shrink-0 object-contain sm:h-6 sm:w-6"
-                      width={24}
-                      height={24}
-                    />
-                  )}
-                  <span className="whitespace-nowrap">{skill.name}</span>
-                </span>
-              ))}
-            </div>
+          {/* Skills moved into hero right side */}
+          <div className="flex w-full items-center justify-center md:justify-end">
+            <aside className="w-full max-w-xl rounded-2xl border border-[color-mix(in_srgb,var(--foreground)_10%,transparent)] bg-[color-mix(in_srgb,var(--surface,var(--background))_68%,transparent)] p-4 backdrop-blur-md md:p-5">
+              <h2 className="text-sm font-semibold tracking-wide text-[color-mix(in_srgb,var(--foreground)_66%,var(--muted))] md:text-base">
+                Skills
+              </h2>
+              <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3">
+                {SKILLS.slice(0, 12).map((skill) => (
+                  <span
+                    key={`hero-skill-${skill.name}`}
+                    role="presentation"
+                    className="skill-btn inline-flex cursor-default items-center justify-center gap-1.5 overflow-hidden rounded-full border bg-[color-mix(in_srgb,var(--surface,var(--background))_88%,transparent)] px-3 py-1.5 text-[13px] font-medium leading-snug text-[var(--foreground)] backdrop-blur-sm sm:gap-2 sm:text-sm"
+                  >
+                    {skill.name === "CSS" ? (
+                      <CSS3Logo className="h-4 w-4 shrink-0 sm:h-[18px] sm:w-[18px]" />
+                    ) : (
+                      <img
+                        src={`${SKILL_ICON_BASE}/${skill.icon}/${skill.color ?? "ffffff"}`}
+                        alt=""
+                        className="h-4 w-4 shrink-0 object-contain sm:h-[18px] sm:w-[18px]"
+                        width={24}
+                        height={24}
+                      />
+                    )}
+                    <span className="whitespace-nowrap">{skill.name}</span>
+                  </span>
+                ))}
+              </div>
+            </aside>
           </div>
         </section>
 
         {/* Projects */}
-        <section className="border-t border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pt-20 md:pt-24">
+        <section className="border-t border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pt-12 md:pt-14">
           <SectionHeading title="Projects" />
-          <div className="mt-14 grid gap-10 md:grid-cols-2 md:items-stretch md:gap-10 lg:gap-12">
-            <ProjectCard
-              title="Zingg — Full Stack Blogging Application"
-              githubUrl={LINKS.zingg}
-              liveUrl={LINKS.zinggLive}
-              problem="Many readers and writers lack a simple, modern place to publish articles and discover content without the noise of generic social feeds."
-              whatItDoes="Zingg is a full-stack blogging platform where users can create accounts, write and edit posts, and browse a clean feed of articles. Authentication and data are handled securely end-to-end."
-              technologies="Next.js, Prisma ORM, NeonDB, TailwindCSS, NextAuth.js, Framer Motion."
-              keyFeatures="User authentication (OAuth2), CRUD for blog posts, responsive UI with smooth animations, server-side rendering for performance and SEO, and a PostgreSQL-backed database via Prisma."
-              myRole="Sole developer designed the architecture, implemented authentication, database schema, API routes, and the front-end UI with a focus on usability and maintainability."
-            />
-            <ProjectCard
-              title="Meal-IT!! — Meal Planning & Nutrition Web App"
-              githubUrl={LINKS.mealIt}
-              liveUrl={LINKS.mealItLive}
-              livePreviewStyle="thumbnail"
-              problem="People juggling meal ideas, macros, and grocery reality often bounce between separate apps for chat advice, planning, and logging—with no single flow from “what should I eat?” to tracked nutrition."
-              whatItDoes="Meal-IT!! brings an AI Chef chat, guided meal-plan flows, a Food Tracker that analyses meal photos, a simple nutrition log, and a floating site-guide assistant into one Next.js app. Recipes live in PostgreSQL with optional embedding-backed similarity for smarter suggestions."
-              technologies="Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, Prisma ORM, PostgreSQL (Neon) with pgvector, Google Gemini (@google/generative-ai), optional Python Food AI service (CNN + HTTP proxy)."
-              keyFeatures="Persisted anonymous Chef sessions; meal-planner chat with locally saved AI drafts; Food Tracker with CNN confidence gating and Gemini vision fallback; nutrition tracker UI; global Gemini site guide; recipe data and embeddings pipeline for RAG-style queries."
-              myRole="Contributor on full-stack delivery: App Router pages and APIs (including food prediction orchestration and Gemini integrations), Prisma/Postgres modelling, and client flows for chat, meal planning, and Food Tracker—alongside teammates covering ML services and broader product work."
-            />
+          <div className="mt-7 grid grid-cols-1 items-stretch gap-6 md:grid-cols-2 md:gap-6 lg:gap-8">
+            {PROJECTS.map((project) => (
+              <ProjectCard key={project.title} {...project} />
+            ))}
           </div>
-          <div className="h-12 shrink-0" aria-hidden />
+          <div className="h-6 shrink-0" aria-hidden />
         </section>
 
         {/* Achievements & Additional Info */}
-        <section className="border-t border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pt-20 md:pt-24">
+        <section className="border-t border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pt-12 md:pt-14">
           <SectionHeading title="Achievements & More" />
-          <div className="mt-14 grid gap-10 md:grid-cols-2 md:gap-10 lg:gap-12">
-            <article className="portfolio-card flex w-full flex-col rounded-2xl p-8">
-              <header className="border-b border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pb-5">
-                <h3 className="text-lg font-semibold tracking-tight text-[var(--foreground)] md:text-xl">
+          <div className="mt-9 grid gap-6 md:grid-cols-2 md:gap-6 lg:gap-7">
+            <article className="portfolio-card flex w-full flex-col rounded-2xl p-6">
+              <header className="border-b border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pb-4">
+                <h3 className="text-base font-semibold tracking-tight text-[var(--foreground)] md:text-lg">
                   Achievements & Recognitions
                 </h3>
-                <div className="mt-3 h-0.5 w-12 rounded-full bg-[var(--color-primary)]/50" />
+                <div className="mt-2.5 h-0.5 w-12 rounded-full bg-[var(--color-primary)]/50" />
               </header>
-              <ul className="mt-5 space-y-4">
+              <ul className="mt-4 space-y-2">
                 {[
                   "Achieved All India Rank 18,897 in JEE Advanced 2023 among 1.5 million+ candidates",
                   "Secured All India Rank 883 in COMEDK 2023",
                   "Generated 250,000+ organic impressions as geopolitical analyst on X (Twitter) through research-driven content and analytical threads",
                   "Active contributor to technical and geopolitical discourse with engaged online community",
                 ].map((text, i) => (
-                  <li key={i} className="flex gap-3 text-sm leading-relaxed text-[var(--muted)]">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[var(--color-primary)]/90" aria-hidden />
+                  <li key={i} className="flex gap-2.5 text-sm leading-snug text-[var(--muted)] md:leading-relaxed">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[var(--color-primary)]/90" aria-hidden />
                     <span>{text}</span>
                   </li>
                 ))}
               </ul>
             </article>
-            <article className="portfolio-card flex w-full flex-col rounded-2xl p-8">
-              <header className="border-b border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pb-5">
-                <h3 className="text-lg font-semibold tracking-tight text-[var(--foreground)] md:text-xl">
+            <article className="portfolio-card flex w-full flex-col rounded-2xl p-6">
+              <header className="border-b border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pb-4">
+                <h3 className="text-base font-semibold tracking-tight text-[var(--foreground)] md:text-lg">
                   Additional Information
                 </h3>
-                <div className="mt-3 h-0.5 w-12 rounded-full bg-[var(--color-primary)]/50" />
+                <div className="mt-2.5 h-0.5 w-12 rounded-full bg-[var(--color-primary)]/50" />
               </header>
-              <div className="mt-5 space-y-6">
+              <div className="mt-4 space-y-4">
                 <div>
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
                     Areas of Interest
                   </h4>
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
+                  <p className="mt-1.5 text-sm leading-snug text-[var(--muted)] md:leading-relaxed">
                     Scalable Web Technologies, Software Engineering, Geopolitics, Public Policy
                   </p>
                 </div>
@@ -332,7 +325,7 @@ export default function Home() {
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
                     Languages
                   </h4>
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
+                  <p className="mt-1.5 text-sm leading-snug text-[var(--muted)] md:leading-relaxed">
                     English (Fluent), Hindi (Native)
                   </p>
                 </div>
@@ -342,7 +335,7 @@ export default function Home() {
         </section>
 
         {/* Footer */}
-        <footer className="border-t border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pt-14 pb-12 flex flex-col items-center gap-6">
+        <footer className="flex flex-col items-center gap-4 border-t border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pb-6 pt-8">
           <p className="text-sm text-[var(--muted)]">
             © {new Date().getFullYear()} Sanidhya Singh
           </p>
