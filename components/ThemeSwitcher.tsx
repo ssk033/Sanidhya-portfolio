@@ -33,7 +33,7 @@ export default function ThemeSwitcher() {
       <button
         type="button"
         disabled
-        className="flex h-10 w-10 shrink-0 cursor-default items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--surface,var(--background))] opacity-80"
+        className="social-icon-btn flex size-10 shrink-0 cursor-default items-center justify-center rounded-xl text-[var(--foreground)] opacity-75"
         aria-label="Color theme"
       >
         <span className="flex h-5 w-5 gap-0.5">
@@ -49,7 +49,7 @@ export default function ThemeSwitcher() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="social-icon-btn flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--surface,var(--background))] text-[var(--foreground)]"
+        className="social-icon-btn flex size-10 shrink-0 items-center justify-center rounded-xl text-[var(--foreground)]"
         aria-label="Color theme"
         aria-expanded={open}
         aria-haspopup="listbox"
@@ -75,23 +75,29 @@ export default function ThemeSwitcher() {
             onClick={() => setOpen(false)}
           />
           <div
-            className="absolute right-0 top-full z-20 mt-3 min-w-[13.5rem] max-h-[min(80vh,22rem)] overflow-y-auto rounded-2xl border border-[var(--color-border)] bg-[var(--surface,var(--background))] p-2 shadow-xl shadow-black/25 ring-1 ring-[var(--color-glow)] transition-[box-shadow] duration-300"
+            className="absolute right-0 top-full z-20 mt-3 min-w-[14rem] max-h-[min(80vh,22rem)] overflow-y-auto rounded-xl border border-[color-mix(in_srgb,var(--foreground)_10%,transparent)] bg-[color-mix(in_srgb,var(--background)_58%,transparent)] p-2 shadow-xl shadow-black/35 backdrop-blur-xl backdrop-saturate-150"
             role="listbox"
             aria-label="Select theme"
             onClick={(e) => e.stopPropagation()}
           >
-            {THEMES.map((t) => (
+            {THEMES.map((t) => {
+              const active = theme === t.id;
+              return (
               <button
                 key={t.id}
                 type="button"
                 role="option"
-                aria-selected={theme === t.id}
+                aria-selected={active}
                 onClick={(e) => {
                   e.stopPropagation();
                   setTheme(t.id);
                   setOpen(false);
                 }}
-                className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm text-[var(--foreground)] transition-colors duration-200 hover:bg-[var(--color-hover-surface)]"
+                className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors duration-200 ${
+                  active
+                    ? "bg-[color-mix(in_srgb,var(--foreground)_8%,transparent)] text-[var(--foreground)] ring-1 ring-inset ring-[var(--color-primary)]/25"
+                    : "text-[var(--foreground)] hover:bg-[color-mix(in_srgb,var(--foreground)_6%,transparent)]"
+                }`}
               >
                 <span className="flex h-4 w-4 shrink-0 items-center justify-center gap-0.5">
                   <span
@@ -104,16 +110,17 @@ export default function ThemeSwitcher() {
                   />
                 </span>
                 <span className="font-medium">{t.label}</span>
-                {theme === t.id && (
+                {active && (
                   <span
-                    className="ml-auto text-[var(--color-accent)]"
+                    className="ml-auto text-[var(--color-primary)]"
                     aria-hidden
                   >
                     ✓
                   </span>
                 )}
               </button>
-            ))}
+              );
+            })}
           </div>
         </>
       )}

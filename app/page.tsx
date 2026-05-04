@@ -3,6 +3,7 @@ import GridBackground from "@/components/ui/grid-background";
 import { IconCloud } from "@/components/ui/icon-cloud";
 import Loader from "@/components/ui/loader";
 import Image from "next/image";
+import { SectionHeading } from "@/components/portfolio/SectionHeading";
 import ProjectCard from "@/components/ProjectCard";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 
@@ -111,7 +112,7 @@ export default function Home() {
       <div className="fixed inset-0 z-0 overflow-hidden">
         <GridBackground />
       </div>
-      <main className="relative z-10 mx-auto max-w-5xl space-y-20 px-6 py-12 md:space-y-28 md:px-12 md:py-20">
+      <main className="relative z-10 mx-auto max-w-5xl space-y-20 px-6 py-14 md:space-y-24 md:px-12 md:py-24">
         {/* Profile (left) + Skill Cloud (right) */}
         <section className="grid gap-12 md:grid-cols-[1fr_1fr] md:gap-12 md:items-start">
           {/* Profile */}
@@ -127,7 +128,7 @@ export default function Home() {
               />
             </div>
             <div className="group/name inline-block rounded-lg px-1 py-0.5 transition-all duration-300 ease-out">
-              <h1 className="profile-name-gloss name-scale text-4xl font-bold tracking-tight text-[var(--foreground)] md:text-5xl">
+              <h1 className="profile-name-gloss name-scale text-5xl font-semibold tracking-tight text-[var(--foreground)] md:text-6xl md:tracking-tight">
                 Sanidhya Singh
               </h1>
               <p className="profile-name-gloss-sub name-scale mt-3 text-lg font-medium text-[var(--muted)] md:text-xl">
@@ -153,17 +154,21 @@ export default function Home() {
 
             {/* Contact: plain text only */}
             <div className="mt-5 space-y-1.5 text-sm leading-relaxed">
-              <p className="text-[var(--foreground)]">
-                <span className="text-[var(--muted)]">Email:</span>{" "}
+              <p className="text-[var(--muted)]">
+                <span className="font-medium text-[color-mix(in_srgb,var(--foreground)_55%,var(--muted))]">
+                  Email:
+                </span>{" "}
                 sanidhyasingh1202@gmail.com
               </p>
-              <p className="text-[var(--foreground)]">
-                <span className="text-[var(--muted)]">Phone:</span> +91 99177
-                18512
+              <p className="text-[var(--muted)]">
+                <span className="font-medium text-[color-mix(in_srgb,var(--foreground)_55%,var(--muted))]">
+                  Phone:
+                </span>{" "}
+                +91 99177 18512
               </p>
             </div>
 
-            <p className="mt-5 max-w-md text-[15px] leading-relaxed text-[var(--muted)] md:text-base">
+            <p className="mt-6 max-w-md text-[15px] leading-relaxed text-[var(--muted)] md:text-base md:leading-relaxed">
               I am an enthusiast developer just exploring the field and open to
               work, familiar with React.js, TypeScript and many other
               technologies.
@@ -175,7 +180,7 @@ export default function Home() {
                 href={LINKS.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="social-icon-btn flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--surface,var(--background))] text-[var(--foreground)]"
+                className="social-icon-btn flex size-10 shrink-0 items-center justify-center rounded-xl text-[var(--foreground)]"
                 aria-label="GitHub profile"
               >
                 <GitHubIcon className="h-5 w-5" />
@@ -184,7 +189,7 @@ export default function Home() {
                 href={LINKS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="social-icon-btn flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--surface,var(--background))] text-[var(--foreground)]"
+                className="social-icon-btn flex size-10 shrink-0 items-center justify-center rounded-xl text-[var(--foreground)]"
                 aria-label="LinkedIn profile"
               >
                 <LinkedInIcon className="h-5 w-5" />
@@ -193,7 +198,7 @@ export default function Home() {
                 href={LINKS.x}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="social-icon-btn flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--surface,var(--background))] text-[var(--foreground)]"
+                className="social-icon-btn flex size-10 shrink-0 items-center justify-center rounded-xl text-[var(--foreground)]"
                 aria-label="X (Twitter) profile"
               >
                 <XIcon className="h-5 w-5" />
@@ -202,7 +207,7 @@ export default function Home() {
                 href={LINKS.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="social-icon-btn flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--surface,var(--background))] text-[var(--foreground)]"
+                className="social-icon-btn flex size-10 shrink-0 items-center justify-center rounded-xl text-[var(--foreground)]"
                 aria-label="Instagram profile"
               >
                 <InstagramIcon className="h-5 w-5" />
@@ -225,23 +230,15 @@ export default function Home() {
         </section>
 
         {/* Skills: buttons only – profile ke neeche, projects ke upar */}
-        <section className="border-t border-[var(--color-border)] pt-16 md:pt-20">
-          <div className="flex flex-col items-center gap-4">
-            <h2 className="text-xl font-semibold tracking-tight text-[var(--foreground)] md:text-2xl">
-              Skills
-            </h2>
-            <div
-              className="h-0.5 w-16 rounded-full bg-[var(--color-primary)] shadow-[0_0_16px_var(--color-glow)]"
-              aria-hidden
-            />
-          </div>
-          <div className="mt-10 flex w-full justify-center">
-            <div className="grid w-full max-w-3xl grid-cols-8 gap-x-4 gap-y-6 sm:gap-x-5 sm:gap-y-7 md:gap-x-6 md:gap-y-8">
+        <section className="border-t border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pt-20 md:pt-24">
+          <SectionHeading title="Skills" />
+          <div className="mt-12 flex w-full justify-center">
+            <div className="grid w-full max-w-3xl grid-cols-8 gap-x-3 gap-y-4 sm:gap-x-4 sm:gap-y-4 md:gap-x-5 md:gap-y-5">
               {SKILLS.map((skill, index) => (
                 <span
                   key={skill.name}
                   role="presentation"
-                  className={`skill-btn inline-flex cursor-default items-center justify-center gap-2 overflow-hidden rounded-full border bg-[var(--surface,var(--background))] px-4 py-2.5 text-sm font-medium text-[var(--foreground)] sm:min-w-[10.5rem] sm:gap-2.5 sm:px-5 sm:py-3 sm:text-[15px] ${getSkillColClass(index)}`}
+                  className={`skill-btn inline-flex cursor-default items-center justify-center gap-2 overflow-hidden rounded-full border bg-[color-mix(in_srgb,var(--surface,var(--background))_88%,transparent)] px-4 py-2 text-sm font-medium text-[var(--foreground)] backdrop-blur-sm sm:min-w-[10.5rem] sm:gap-2.5 sm:px-4 sm:py-2 sm:text-[15px] ${getSkillColClass(index)}`}
                 >
                   {skill.name === "CSS" ? (
                     <CSS3Logo className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" />
@@ -262,17 +259,9 @@ export default function Home() {
         </section>
 
         {/* Projects */}
-        <section className="border-t border-[var(--color-border)] pt-16 md:pt-20">
-          <div className="flex flex-col items-center gap-4">
-            <h2 className="text-xl font-semibold tracking-tight text-[var(--foreground)] md:text-2xl">
-              Projects
-            </h2>
-            <div
-              className="h-0.5 w-16 rounded-full bg-[var(--color-primary)] shadow-[0_0_16px_var(--color-glow)]"
-              aria-hidden
-            />
-          </div>
-          <div className="mt-12 grid gap-8 md:grid-cols-2 md:items-stretch md:gap-10 lg:gap-12">
+        <section className="border-t border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pt-20 md:pt-24">
+          <SectionHeading title="Projects" />
+          <div className="mt-14 grid gap-10 md:grid-cols-2 md:items-stretch md:gap-10 lg:gap-12">
             <ProjectCard
               title="Zingg — Full Stack Blogging Application"
               githubUrl={LINKS.zingg}
@@ -287,7 +276,7 @@ export default function Home() {
               title="Meal-IT!! — Meal Planning & Nutrition Web App"
               githubUrl={LINKS.mealIt}
               liveUrl={LINKS.mealItLive}
-              embedLivePreview={false}
+              livePreviewStyle="thumbnail"
               problem="People juggling meal ideas, macros, and grocery reality often bounce between separate apps for chat advice, planning, and logging—with no single flow from “what should I eat?” to tracked nutrition."
               whatItDoes="Meal-IT!! brings an AI Chef chat, guided meal-plan flows, a Food Tracker that analyses meal photos, a simple nutrition log, and a floating site-guide assistant into one Next.js app. Recipes live in PostgreSQL with optional embedding-backed similarity for smarter suggestions."
               technologies="Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, Prisma ORM, PostgreSQL (Neon) with pgvector, Google Gemini (@google/generative-ai), optional Python Food AI service (CNN + HTTP proxy)."
@@ -298,20 +287,12 @@ export default function Home() {
           <div className="h-12 shrink-0" aria-hidden />
         </section>
 
-        {/* Achievements & Additional Info – 3D cards */}
-        <section className="border-t border-[var(--color-border)] pt-16 md:pt-20">
-          <div className="flex flex-col items-center gap-4">
-            <h2 className="text-xl font-semibold tracking-tight text-[var(--foreground)] md:text-2xl">
-              Achievements & More
-            </h2>
-            <div
-              className="h-0.5 w-16 rounded-full bg-[var(--color-primary)] shadow-[0_0_16px_var(--color-glow)]"
-              aria-hidden
-            />
-          </div>
-          <div className="mt-12 grid gap-8 md:grid-cols-2 md:gap-10 lg:gap-12">
-            <article className="portfolio-card flex w-full flex-col p-6 md:p-7">
-              <header className="border-b border-[var(--color-border)]/50 pb-4">
+        {/* Achievements & Additional Info */}
+        <section className="border-t border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pt-20 md:pt-24">
+          <SectionHeading title="Achievements & More" />
+          <div className="mt-14 grid gap-10 md:grid-cols-2 md:gap-10 lg:gap-12">
+            <article className="portfolio-card flex w-full flex-col rounded-2xl p-8">
+              <header className="border-b border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pb-5">
                 <h3 className="text-lg font-semibold tracking-tight text-[var(--foreground)] md:text-xl">
                   Achievements & Recognitions
                 </h3>
@@ -331,8 +312,8 @@ export default function Home() {
                 ))}
               </ul>
             </article>
-            <article className="portfolio-card flex w-full flex-col p-6 md:p-7">
-              <header className="border-b border-[var(--color-border)]/50 pb-4">
+            <article className="portfolio-card flex w-full flex-col rounded-2xl p-8">
+              <header className="border-b border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pb-5">
                 <h3 className="text-lg font-semibold tracking-tight text-[var(--foreground)] md:text-xl">
                   Additional Information
                 </h3>
@@ -361,7 +342,7 @@ export default function Home() {
         </section>
 
         {/* Footer */}
-        <footer className="border-t border-[var(--color-border)] pt-12 pb-10 flex flex-col items-center gap-5">
+        <footer className="border-t border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pt-14 pb-12 flex flex-col items-center gap-6">
           <p className="text-sm text-[var(--muted)]">
             © {new Date().getFullYear()} Sanidhya Singh
           </p>

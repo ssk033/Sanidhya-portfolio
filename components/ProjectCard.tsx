@@ -1,9 +1,13 @@
+import { LivePreviewThumbnail } from "@/components/LivePreviewThumbnail";
+
 type ProjectCardProps = {
   title: string;
   githubUrl: string;
   liveUrl?: string;
-  /** If false, skip iframe (many hosts return 403 when embedded cross-origin). */
+  /** Use iframe (interactive). Sites that block frames → use `thumbnail`. */
   embedLivePreview?: boolean;
+  /** Static screenshot preview when iframe is blocked (opens URL on click). */
+  livePreviewStyle?: "iframe" | "thumbnail";
   problem: string;
   whatItDoes: string;
   technologies: string;
@@ -35,6 +39,7 @@ export default function ProjectCard({
   githubUrl,
   liveUrl,
   embedLivePreview = true,
+  livePreviewStyle = "iframe",
   problem,
   whatItDoes,
   technologies,
@@ -42,8 +47,8 @@ export default function ProjectCard({
   myRole,
 }: ProjectCardProps) {
   return (
-    <article className="portfolio-card flex h-full min-h-0 w-full flex-col p-6 md:p-7">
-      <header className="flex flex-wrap items-start justify-between gap-3 gap-y-2 border-b border-[var(--color-border)]/50 pb-4">
+    <article className="portfolio-card flex h-full min-h-0 w-full flex-col rounded-2xl p-8">
+      <header className="flex flex-wrap items-start justify-between gap-3 gap-y-2 border-b border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pb-5">
         <h3 className="min-w-0 flex-1 text-base font-semibold leading-snug tracking-tight text-[var(--foreground)] md:text-lg">
           {title}
         </h3>
@@ -59,8 +64,12 @@ export default function ProjectCard({
 
       {liveUrl && (
         <div className="mt-5 w-full">
-          {embedLivePreview ? (
-            <div className="overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--surface,var(--background))]">
+          {livePreviewStyle === "thumbnail" ? (
+            <div className="overflow-hidden rounded-xl border border-[color-mix(in_srgb,var(--foreground)_10%,transparent)] bg-[color-mix(in_srgb,var(--surface,var(--background))_82%,transparent)] backdrop-blur-sm">
+              <LivePreviewThumbnail liveUrl={liveUrl} title={title} />
+            </div>
+          ) : embedLivePreview ? (
+            <div className="overflow-hidden rounded-xl border border-[color-mix(in_srgb,var(--foreground)_10%,transparent)] bg-[color-mix(in_srgb,var(--surface,var(--background))_82%,transparent)] backdrop-blur-sm">
               <iframe
                 src={liveUrl}
                 title={`${title} live preview`}
@@ -75,7 +84,7 @@ export default function ProjectCard({
               href={liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-[9rem] flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-[var(--color-border)] bg-[var(--surface,var(--background))] px-4 py-6 text-center transition-[border-color,box-shadow] duration-200 hover:border-[var(--color-primary)]/38 hover:shadow-[0_10px_32px_-16px_rgba(0,0,0,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
+              className="flex min-h-[9rem] flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-[color-mix(in_srgb,var(--foreground)_12%,transparent)] bg-[color-mix(in_srgb,var(--surface,var(--background))_78%,transparent)] px-4 py-6 text-center backdrop-blur-sm transition-[border-color,box-shadow] duration-[250ms] ease-out hover:border-[var(--color-primary)]/35 hover:shadow-[0_12px_36px_-18px_rgba(0,0,0,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
               aria-label={`Open ${title} live site in a new tab`}
             >
               <ExternalLinkIcon className="h-7 w-7 text-[var(--color-primary)] opacity-90" />

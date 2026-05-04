@@ -20,7 +20,7 @@ export default function GridBackground({
       )}
     >
       <div
-        className="absolute inset-0 grid-bg-lines opacity-[0.28] sm:opacity-[0.32]"
+        className="absolute inset-0 grid-bg-lines opacity-[0.11] sm:opacity-[0.14]"
         aria-hidden
       />
       {withFade && (

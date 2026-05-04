@@ -179,35 +179,44 @@ body {
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
 }
 
-/* Portfolio surfaces — flat layout; subtle lift on hover (no 3D tilt) */
+/* Portfolio cards — glass surface, minimal idle glow; lift + glow on hover only */
 .portfolio-card {
   border-radius: 1rem;
-  border: 1px solid var(--color-border);
-  background: var(--surface, var(--background));
+  border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
+  background:
+    linear-gradient(
+      152deg,
+      color-mix(in srgb, var(--color-primary) 7%, transparent) 0%,
+      transparent 50%
+    ),
+    color-mix(in srgb, var(--surface, var(--background)) 78%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.04),
-    0 8px 24px -10px rgba(0, 0, 0, 0.38),
-    0 0 36px -18px var(--color-glow);
+    0 1px 0 color-mix(in srgb, var(--foreground) 5%, transparent),
+    0 10px 28px -12px rgba(0, 0, 0, 0.42);
   transition:
-    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.22s ease;
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
 }
 
 .portfolio-card:hover {
-  transform: translateY(-3px);
-  border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
+  transform: translateY(-4px) scale(1.02);
+  border-color: color-mix(in srgb, var(--foreground) 16%, transparent);
   box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.06),
-    0 16px 36px -14px rgba(0, 0, 0, 0.48),
-    0 0 44px -14px var(--color-glow);
+    0 1px 0 color-mix(in srgb, var(--foreground) 8%, transparent),
+    0 18px 44px -14px rgba(0, 0, 0, 0.48),
+    0 0 48px -14px var(--color-glow);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .portfolio-card {
     transition:
       box-shadow 0.2s ease,
-      border-color 0.2s ease;
+      border-color 0.2s ease,
+      background 0.2s ease;
   }
   .portfolio-card:hover {
     transform: none;
@@ -215,19 +224,33 @@ body {
 }
 
 .social-icon-btn {
+  border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
+  background-color: color-mix(in srgb, var(--surface, var(--background)) 72%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   transition:
-    transform 0.25s ease,
-    border-color 0.25s ease,
-    background-color 0.25s ease,
-    box-shadow 0.25s ease,
-    color 0.25s ease;
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease;
 }
 
 .social-icon-btn:hover {
-  transform: scale(1.045);
-  border-color: color-mix(in srgb, var(--color-primary) 55%, var(--color-border));
-  background-color: var(--color-hover-surface);
-  box-shadow: 0 0 20px -4px var(--color-glow);
+  transform: scale(1.05);
+  border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-border));
+  background-color: color-mix(
+    in srgb,
+    var(--color-hover-surface) 88%,
+    transparent
+  );
+  box-shadow: 0 0 22px -6px var(--color-glow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-icon-btn:hover {
+    transform: none;
+  }
 }
 
 .social-icon-btn:focus-visible {
@@ -298,30 +321,36 @@ body {
   background-clip: text;
 }
 
-/* Skill pills */
+/* Skill pills — idle flat; hover brighten + subtle glow */
 .skill-btn {
-  border-color: var(--color-border);
+  border-color: color-mix(in srgb, var(--foreground) 8%, var(--color-border));
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease,
-    background 0.25s ease;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.14),
-    0 0 24px -10px var(--color-glow);
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease,
+    color 0.22s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
 .skill-btn:hover {
-  transform: scale(1.03) translateY(-2px);
-  border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-border));
+  transform: scale(1.04) translateY(-1px);
+  border-color: color-mix(in srgb, var(--color-primary) 40%, var(--color-border));
   box-shadow:
-    0 6px 20px -6px rgba(0, 0, 0, 0.35),
-    0 0 36px -8px var(--color-glow);
+    0 6px 18px -8px rgba(0, 0, 0, 0.35),
+    0 0 32px -10px var(--color-glow);
   background: color-mix(
     in srgb,
-    var(--color-hover-surface) 90%,
+    var(--color-hover-surface) 85%,
     var(--surface, var(--background))
   );
+  color: color-mix(in srgb, var(--foreground) 94%, var(--color-primary));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-btn:hover {
+    transform: none;
+  }
 }
 
 .name-scale {
