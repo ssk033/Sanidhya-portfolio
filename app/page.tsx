@@ -5,6 +5,7 @@ import Image from "next/image";
 import { SectionHeading } from "@/components/portfolio/SectionHeading";
 import ProjectCard, { type ProjectCardProps } from "@/components/ProjectCard";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import GithubCalendar from "@/components/GithubCalendar";
 
 const LINKS = {
   github: "https://github.com/ssk033",
@@ -52,7 +53,7 @@ const PROJECTS: ProjectCardProps[] = [
   },
 ];
 
-/* Skills data reused in hero and full skills section */
+/* Skills data — hero shows first 12 via SKILLS.slice(0, 12) */
 const SKILLS: { name: string; icon: string; color?: string }[] = [
   { name: "HTML5", icon: "html5", color: "E34F26" },
   { name: "CSS", icon: "css3", color: "1572B6" },
@@ -278,6 +279,14 @@ export default function Home() {
             ))}
           </div>
           <div className="h-6 shrink-0" aria-hidden />
+        </section>
+
+        {/* GitHub Activity */}
+        <section className="border-t border-[color-mix(in_srgb,var(--foreground)_8%,transparent)] pt-12 md:pt-14">
+          <SectionHeading title="GitHub Activity" />
+          <div className="mx-auto mt-7 max-w-5xl">
+            <GithubCalendar username="ssk033" profileUrl={LINKS.github} />
+          </div>
         </section>
 
         {/* Achievements & Additional Info */}

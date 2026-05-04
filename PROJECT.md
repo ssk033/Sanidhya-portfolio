@@ -1,6 +1,6 @@
 # my-portfolio — project documentation
 
-Personal portfolio site for **Sanidhya Singh** (Full Stack Developer & CSE undergrad, Bengaluru). Single-page marketing layout: hero, skills, projects, achievements, footer.
+Personal portfolio site for **Sanidhya Singh** (Full Stack Developer & CSE undergrad, Bengaluru). Single-page layout: **hero** (profile + skills subset), **projects**, **achievements**, **footer**. There is **no separate Skills section** below the hero — skills pills live only inside the hero (first **12** entries from `SKILLS`).
 
 ---
 
@@ -30,7 +30,7 @@ components/
   providers/      # ThemeProvider + barrel export
   portfolio/      # SectionHeading
   icons/          # CSS3Logo (Simple Icons CDN has no CSS3 slug workaround)
-  ui/             # GridBackground, IconCloud, Loader, cards, beams, etc.
+  ui/             # GridBackground, Loader, IconCloud (optional / demos), cards, beams
   ProjectCard.tsx, ThemeSwitcher.tsx, LivePreviewThumbnail.tsx, …
 
 lib/
@@ -42,7 +42,10 @@ public/
   *.svg           # Default Next assets (optional use)
 ```
 
-**Note:** `components/*-demo.tsx` files look like UI kit demos / experiments alongside production components.
+**Notes**
+
+- `components/*-demo.tsx` — UI kit demos / experiments.
+- **`IconCloud`** (`components/ui/icon-cloud.tsx`) remains in the repo (subtle canvas tuning possible) but is **not imported on the home page**; hero skills use pills instead.
 
 ---
 
@@ -89,22 +92,61 @@ Components use these via Tailwind arbitrary values, e.g. `bg-[var(--background)]
 
 ### Theme switcher UI
 
-`ThemeSwitcher.tsx`: dropdown next to social icons; shows primary/secondary swatches per theme; uses `useTheme()`; SSR-safe placeholder button until `mounted` to avoid hydration mismatch.
+`ThemeSwitcher.tsx`: dropdown next to social icons in the hero; shows primary/secondary swatches per theme; uses `useTheme()`; SSR-safe placeholder until `mounted`.
 
 ---
 
-## Layout & content density (`app/page.tsx`)
+## Page structure (`app/page.tsx`)
 
-The page is tuned for **less vertical scrolling** while staying readable: tighter **`main`** rhythm (`space-y-12` / `md:space-y-14`, `py-8` / `md:py-11`), section dividers with **`pt-12` / `md:pt-14`** instead of very large top padding, and slightly smaller type in the hero where it was oversized.
+### Content density
 
-1. **Shell:** `min-h-screen` wrapper + fixed full-viewport layer for `GridBackground` (`z-0`), **`main` at `z-10`** (`max-w-5xl`, horizontal padding unchanged in spirit).  
-2. **Hero (grid):** On **`md+`**, `min-h-[68vh]` helps the hero occupy most of the viewport so the first screen can show **hero + start of Skills**. Left — circular `next/image` (`/iron-man.jpg`, **`sizes="144px"`**, `priority`), compact avatar (`h-36 w-36`, `md:h-40 md:w-40`), reduced gaps between name → subtitle → location → contact → bio → socials; heading scale **`text-4xl` / `md:text-5xl`**. Right — **`IconCloud`** with Simple Icons CDN URLs and **max height/width caps** so the sphere does not dominate the column.  
-3. **Skills:** `SectionHeading` + 8-column grid with **tighter `gap-x` / `gap-y`**; pills use **`px-3 py-1.5`**, smaller icons/text; `getSkillColClass` unchanged.  
-4. **Projects:** **`gap-6`** (and modest `lg` bump); **`mt-9`** after heading; trailing spacer **`h-8`**.  
-5. **Achievements & More:** Two **`portfolio-card`** blocks with **`p-6`**, **`space-y-2`** bullets, tighter headers and secondary copy.  
-6. **Footer:** **`pt-8 pb-6`**, **`gap-4`**.
+Tighter **`main`** rhythm (`space-y-12` / `md:space-y-14`, `py-8` / `md:py-11`). Sections after hero use **`pt-12` / `md:pt-14`** top borders.
 
-Constants **`LINKS`** centralize GitHub, LinkedIn, X, Instagram, and project repo/live URLs.
+### Constants
+
+- **`LINKS`** — GitHub, LinkedIn, X, Instagram, project repos + live URLs.  
+- **`PROJECTS`** — `ProjectCardProps[]`; mapped to `<ProjectCard />`. Both entries use **`livePreviewStyle: "thumbnail"`** (WordPress mshots via `LivePreviewThumbnail`).  
+- **`SKILLS`** — `{ name, icon, color? }[]`; icons from **`SKILL_ICON_BASE`** (`cdn.simpleicons.org`). Hero shows **`SKILLS.slice(0, 12)`** only.
+
+### 1. Shell
+
+`min-h-screen` + fixed **`GridBackground`** (`z-0`); **`main`** `relative z-10 max-w-5xl`.
+
+### 2. Hero
+
+- **Grid:** `grid grid-cols-1 md:grid-cols-2 gap-10 items-center`.  
+- **Left:** Avatar (`next/image`, `/iron-man.jpg`), name, role, location, email/phone, short bio, social icons + `ThemeSwitcher`.  
+- **Right:** Elevated **`aside`** (rounded border, blur, surface tint) with heading **“Skills”** and a **compact grid** `grid-cols-2 md:grid-cols-3 gap-3`. Each cell reuses the **same pill pattern** as before: **`skill-btn`** + icon (`CSS3Logo` for CSS, else `<img>` from Simple Icons) + label — **no second skills section** elsewhere on the page.
+
+### 3. Projects
+
+- **`SectionHeading`** “Projects”.  
+- **`grid grid-cols-1 md:grid-cols-2`** `gap-6` / `lg:gap-8`, **`items-stretch`**.  
+- One **`ProjectCard`** per **`PROJECTS`** entry.
+
+### 4. Achievements & More
+
+Two **`portfolio-card`** columns (achievements list + extra info).
+
+### 5. Footer
+
+Copyright + **`Loader`**; compact padding.
+
+---
+
+## Projects (`components/ProjectCard.tsx`)
+
+Composable layout (same props **`ProjectCardProps`** exported for **`PROJECTS`** typing):
+
+| Piece | Role |
+|-------|------|
+| **`ProjectCardShell`** | Outer article: border, glassy bg, hover lift |
+| **`ProjectCardHeading`** | Title only (preview sits directly under heading) |
+| **`ProjectCardPreview`** | Thumbnail / iframe / fallback; wrapper `rounded-2xl`, `border-white/10`, soft glow; hover scale ~**1.02** |
+| **`ProjectCardContent`** | Problem + description (**`text-justify [text-align-last:left]`**), tech pills, up to **3** feature bullets, **`<details>`** with full keyFeatures + myRole, GitHub + Live buttons |
+| **Default `ProjectCard`** | Vertical stack: heading → preview → content; **`h-full`** for grid column stretch |
+
+Live previews default to **`LivePreviewThumbnail`** when `livePreviewStyle === "thumbnail"` (see `LivePreviewThumbnail.tsx`, optional **`imgClassName`**).
 
 ---
 
@@ -112,29 +154,22 @@ Constants **`LINKS`** centralize GitHub, LinkedIn, X, Instagram, and project rep
 
 Fixed, non-interactive, **six stacked layers** (`z-[1]` … `z-[6]`, root **`isolate`**):
 
-1. **`.page-bg-base-layer`** — **`linear-gradient(to bottom right, …)`** from dark mixes of `--background` / `--surface` into a corner tinted with **`color-mix(..., var(--color-primary) ~7%, …)`**. Slow **`page-bg-gradient-drift`** (~**26s**) via oversized `background-size` + `background-position`; disabled under **`prefers-reduced-motion`**.  
-2. **Radial blobs** — Large blurred ellipses (**primary** top-left, **accent** bottom-right); **higher opacity** (~0.18–0.22 range) and **heavy blur** (~132–142px); radial cores use stronger `color-mix` stops. Separate slow **translate/scale** animations (**~29s / ~31s**); disabled when reduced motion.  
-3. **`.page-bg-mid-light`** — Soft centered **`radial-gradient`** with very low **white** alpha (~**3%**) so the middle does not read flat.  
-4. **`.grid-bg-lines`** — Uses **`--grid-line-paint`**: mix of **`var(--grid-line)`** and extra **`var(--color-primary)`** for theme-linked lines; **0.5px** strokes; layer opacity ~**0.13–0.17**; optional **`--page-grid-mask`** radial fade (edges fall off).  
-5. **`.page-bg-vignette`** — Elliptical **darkening toward edges** (`transparent` → **`rgba(0,0,0,0.4)`**) for depth; sits **above** grid, **below** noise.  
-6. **`.page-bg-noise`** — SVG **`feTurbulence`** tile, **`mix-blend-mode: overlay`**, opacity ~**5%**.
-
-Grid painting and ambient layers live in **`globals.css`**; JSX wires masks and blob inline gradients where CSS variables are needed.
+1. **`.page-bg-base-layer`** — Deep **`to bottom right`** gradient + theme tint; slow **`page-bg-gradient-drift`** (~26s); respects **`prefers-reduced-motion`**.  
+2. **Radial blobs** — Primary / accent, large blur, slow drift (~29s / ~31s).  
+3. **`.page-bg-mid-light`** — Soft center lift (low white alpha).  
+4. **`.grid-bg-lines`** — **`--grid-line-paint`**; thin lines + radial mask optional.  
+5. **`.page-bg-vignette`** — Edge darkening.  
+6. **`.page-bg-noise`** — Grain, **`mix-blend-mode: overlay`**, ~5% opacity.
 
 ---
 
 ## Styling highlights (`globals.css`)
 
-- **`@theme inline`** maps `--color-background` / `--color-foreground` to CSS variables for Tailwind.  
-- **`.portfolio-card`** — glass-like card: gradient tint, blur, hover lift/shadow/glow.  
-- **`.social-icon-btn`** — icon buttons for social + theme trigger.  
-- **`.text-gradient`** — accent → primary text gradient utility.  
-- **`.skill-btn`** — pill hover scale/glow.  
-- **`.name-scale` / `.group\/name:hover`** — profile name hover polish.  
-- **Loader** — complex SVG/CSS keyframes under `.loader-frame`.  
-- **Page backdrop** — classes documented in the Background section: base layer, blob keyframes, mid-light, vignette, noise, and **`--grid-line-paint`** inside **`.grid-bg-lines`**.
+- **`@theme inline`** — Tailwind color tokens from CSS variables.  
+- **`.portfolio-card`**, **`.social-icon-btn`**, **`.skill-btn`**, **`.text-gradient`**, **`.name-scale`**, **Loader** (`.loader-frame`).  
+- Page backdrop utilities as above.
 
-Reduced-motion media queries tone down transforms on cards, social buttons, skills, and background animations.
+Reduced-motion rules tone down card/skill/background motion where relevant.
 
 ---
 
@@ -142,46 +177,47 @@ Reduced-motion media queries tone down transforms on cards, social buttons, skil
 
 | File | Role |
 |------|------|
-| `ProjectCard.tsx` | Project story blocks; GitHub/live links; optional `LivePreviewThumbnail` or iframe preview; **compact padding (`p-6`)** and tighter header/body spacing |
-| `components/ui/icon-cloud.tsx` | 3D-ish floating icon sphere (client component); canvas **400×400**; parent on `page.tsx` constrains visual size |
-| `components/ui/loader.tsx` | Animated loader used in footer |
-| `SectionHeading.tsx` | Shared section titles; **smaller heading scale** and tighter gap under title |
-| `background-beams-with-collision.tsx`, `evervault-card.tsx`, `3d-card.tsx` | Rich UI primitives (may be used in demos or future sections) |
+| `ProjectCard.tsx` | Split exports + default card; thumbnail-first layout |
+| `LivePreviewThumbnail.tsx` | External screenshot preview + optional `imgClassName` |
+| `components/ui/grid-background.tsx` | Layered backdrop |
+| `components/ui/icon-cloud.tsx` | Canvas globe (**not used on home**; demos / reuse) |
+| `components/ui/loader.tsx` | Footer decorative loader |
+| `SectionHeading.tsx` | Section titles + accent bar |
 
 ---
 
 ## Path alias
 
-`tsconfig.json` maps `@/*` to the project root (typical Next + TypeScript setup).
+`tsconfig.json` maps `@/*` to the project root.
 
 ---
 
-## Security / privacy notes (for maintainers)
+## Security / privacy notes
 
-- Email and phone are **hardcoded** in `page.tsx` — fine for a public portfolio; avoid committing secrets elsewhere.  
+- Email and phone are **hardcoded** in `page.tsx`.  
 - External links use `rel="noopener noreferrer"` where applicable.
 
 ---
 
 ## Extending the project
 
-- **New theme:** Add ID to `VALID_THEME_IDS` + `layout.tsx` inline script array + new `html[data-theme="…"]` block in `globals.css` + entry in `ThemeSwitcher` `THEMES` array.  
-- **New section:** Add a `<section>` in `page.tsx` with `SectionHeading` and reuse `portfolio-card` / grid patterns.  
-- **New project:** Duplicate `ProjectCard` with new `LINKS` entries.
+- **New theme:** `VALID_THEME_IDS` + `layout.tsx` script allowlist + `globals.css` block + `ThemeSwitcher` list.  
+- **More hero skills:** Adjust **`SKILLS.slice(0, 12)`** or restore a dedicated section if you want the full **16** visible twice.  
+- **New project:** Append to **`PROJECTS`** + **`LINKS`** as needed.
 
 ---
 
-## Related files in repo
+## Related files
 
-- `README.md` — default Next starter blurb (may be outdated vs actual site).  
-- `SHADCN-SETUP.md` — notes from shadcn-style setup if you add more UI primitives.
+- `README.md` — may lag behind this doc.  
+- `SHADCN-SETUP.md` — shadcn-style notes if adding primitives.
 
 ---
 
 ## Maintainer notes
 
-- **`package.json`** must be strict JSON (no stray characters before the opening `{`); invalid JSON breaks `npm run dev` / `npm run build`.
+- **`package.json`** must be valid JSON (no stray characters before `{`).
 
 ---
 
-*Last updated to match the six-layer background, grid paint token, and denser page spacing. Revise when adding routes, CMS, or deployment-specific config.*
+*Last updated: hero skills pills (subset of `SKILLS`), no duplicate skills section; projects grid + `ProjectCard` vertical layout; both projects use thumbnail previews; six-layer background unchanged at a high level.*
