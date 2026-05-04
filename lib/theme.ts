@@ -3,9 +3,8 @@ export const THEME_STORAGE_KEY = "portfolio-theme";
 export const VALID_THEME_IDS = [
   "purple-gold",
   "ironMan",
-  "captainAmerica",
   "spiderMan",
-  "thor",
+  "rajputana",
 ] as const;
 
 export type ThemeId = (typeof VALID_THEME_IDS)[number];

@@ -139,7 +139,7 @@ export default function Home() {
         <section className="grid grid-cols-1 items-center gap-10 md:grid-cols-2">
           {/* Profile */}
           <div className="flex flex-col items-start">
-            <div className="relative mb-4 h-36 w-36 shrink-0 overflow-hidden rounded-full border border-[var(--color-border)] bg-[var(--surface,var(--background))] shadow-[0_0_40px_-12px_var(--color-glow)] md:h-40 md:w-40">
+            <div className="portfolio-hero-avatar relative mb-4 h-36 w-36 shrink-0 overflow-hidden rounded-full border border-[var(--color-border)] bg-[var(--surface,var(--background))] shadow-[0_0_40px_-12px_var(--color-glow)] md:h-40 md:w-40">
               <Image
                 src="/iron-man.jpg"
                 alt="Sanidhya Singh"
@@ -190,10 +190,12 @@ export default function Home() {
               </p>
             </div>
 
-            <p className="mt-4 max-w-md text-[14px] leading-snug text-[var(--muted)] md:text-[15px] md:leading-relaxed">
-              I am an enthusiast developer just exploring the field and open to
-              work, familiar with React.js, TypeScript and many other
-              technologies.
+            <p className="mt-4 max-w-md text-justify [text-align-last:left] text-[14px] leading-snug text-[var(--muted)] md:text-[15px] md:leading-relaxed">
+              I am a frontend-focused developer who enjoys building clean,
+              user-friendly web experiences and continuously improving through
+              real projects. I am open to work opportunities and comfortable
+              with React.js, TypeScript, Next.js, and modern tooling while
+              learning deeper full-stack engineering practices.
             </p>
 
             {/* Social: GitHub, LinkedIn, X, Instagram, theme */}
@@ -240,7 +242,7 @@ export default function Home() {
 
           {/* Skills moved into hero right side */}
           <div className="flex w-full items-center justify-center md:justify-end">
-            <aside className="w-full max-w-xl rounded-2xl border border-[color-mix(in_srgb,var(--foreground)_10%,transparent)] bg-[color-mix(in_srgb,var(--surface,var(--background))_68%,transparent)] p-4 backdrop-blur-md md:p-5">
+            <aside className="portfolio-hero-skills-panel w-full max-w-xl rounded-2xl border border-[color-mix(in_srgb,var(--foreground)_10%,transparent)] bg-[color-mix(in_srgb,var(--surface,var(--background))_68%,transparent)] p-4 backdrop-blur-md md:p-5">
               <h2 className="text-sm font-semibold tracking-wide text-[color-mix(in_srgb,var(--foreground)_66%,var(--muted))] md:text-base">
                 Skills
               </h2>

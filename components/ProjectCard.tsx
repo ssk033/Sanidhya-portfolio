@@ -69,7 +69,7 @@ export function ProjectCardShell({
   return (
     <article
       className={cn(
-        "group/project rounded-2xl border border-[color-mix(in_srgb,var(--foreground)_10%,transparent)] bg-[color-mix(in_srgb,var(--surface,var(--background))_45%,transparent)] p-6 backdrop-blur-md transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--color-primary)_28%,var(--color-border))] hover:shadow-[0_22px_48px_-32px_rgba(0,0,0,0.55),0_0_36px_-24px_var(--color-glow)] md:p-8",
+        "project-premium-shell group/project rounded-2xl border border-[color-mix(in_srgb,var(--foreground)_10%,transparent)] bg-[color-mix(in_srgb,var(--surface,var(--background))_45%,transparent)] p-6 backdrop-blur-md transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--color-primary)_28%,var(--color-border))] hover:shadow-[0_22px_48px_-32px_rgba(0,0,0,0.55),0_0_36px_-24px_var(--color-glow)] md:p-8",
         className,
       )}
     >
@@ -161,7 +161,7 @@ export function ProjectCardContent(props: ProjectCardProps) {
         </div>
       </details>
 
-      <div className="flex flex-wrap justify-start gap-3 pt-1">
+      <div className="project-premium-actions flex flex-wrap justify-start gap-3 pt-1">
         <a
           href={githubUrl}
           target="_blank"
@@ -198,9 +198,9 @@ export function ProjectCardPreview({
   "title" | "githubUrl" | "liveUrl" | "embedLivePreview" | "livePreviewStyle"
 >) {
   const previewShell =
-    "rounded-2xl border border-white/10 bg-[color-mix(in_srgb,var(--surface,var(--background))_78%,transparent)] shadow-[0_0_40px_-22px_var(--color-glow)] transition-[box-shadow] duration-300 ease-out group-hover/project:shadow-[0_24px_52px_-30px_rgba(0,0,0,0.52)]";
+    "project-premium-preview rounded-2xl border border-white/10 bg-[color-mix(in_srgb,var(--surface,var(--background))_78%,transparent)] shadow-[0_0_40px_-22px_var(--color-glow)] transition-[box-shadow] duration-300 ease-out group-hover/project:shadow-[0_24px_52px_-30px_rgba(0,0,0,0.52)]";
   const previewInner =
-    "origin-center transition-transform duration-300 ease-out group-hover/project:scale-[1.02]";
+    "project-premium-preview-inner origin-center transition-transform duration-300 ease-out";
 
   const previewBody =
     liveUrl == null ? (

@@ -6,12 +6,13 @@ import { cn } from "@/lib/utils";
 
 type GridBackgroundProps = {
   className?: string;
-  /** Radial mask so the grid softens toward the viewport edges. Default true. */
+  /** Radial mask so grid reads stronger in the centre and falls off toward edges */
   withFade?: boolean;
 };
 
 /**
- * Fixed backdrop stack: base gradient → glow blobs → mid light → grid → vignette → noise.
+ * Fixed backdrop stack: base gradient → glow blobs → mid-light → centre aura (Rajputana)
+ * → grid → light sweep → vignette → noise.
  * Content must stay above with z-10+.
  */
 export default function GridBackground({
@@ -19,7 +20,7 @@ export default function GridBackground({
   withFade = true,
 }: GridBackgroundProps) {
   const gridMask =
-    "radial-gradient(ellipse 96% 90% at 50% 46%, black 0%, black 28%, transparent 74%)";
+    "radial-gradient(ellipse 96% 94% at 50% 46%, black 0%, black 34%, transparent 80%)";
 
   return (
     <div
@@ -31,31 +32,22 @@ export default function GridBackground({
       {/* 1 — Gradient base */}
       <div className="page-bg-base-layer absolute inset-0 z-[1]" aria-hidden />
 
-      {/* 2 — Radial glows (primary TL, accent BR) */}
+      {/* 2 — Radial glow blobs (colour from globals; blur + opacity in CSS) */}
       <div className="absolute inset-0 z-[2]" aria-hidden>
-        <div
-          className="page-bg-glow-blob-primary absolute -left-[38%] -top-[30%] size-[min(125vw,72rem)] rounded-full opacity-[0.22] blur-[132px]"
-          style={{
-            background:
-              "radial-gradient(circle at center, color-mix(in srgb, var(--color-primary) 52%, transparent), transparent 62%)",
-          }}
-        />
-        <div
-          className="page-bg-glow-blob-accent absolute -bottom-[28%] -right-[34%] size-[min(128vw,76rem)] rounded-full opacity-[0.18] blur-[142px]"
-          style={{
-            background:
-              "radial-gradient(circle at center, color-mix(in srgb, var(--color-accent) 46%, transparent), transparent 65%)",
-          }}
-        />
+        <div className="page-bg-glow-blob-primary page-bg-glow-primary-fill absolute -left-[42%] -top-[34%] size-[min(142vw,82rem)] rounded-full" />
+        <div className="page-bg-glow-blob-accent page-bg-glow-accent-fill absolute -bottom-[32%] -right-[38%] size-[min(145vw,85rem)] rounded-full" />
       </div>
 
-      {/* 3 — Center lift */}
+      {/* 3 — Centre lift */}
       <div className="page-bg-mid-light absolute inset-0 z-[3]" aria-hidden />
+
+      {/* 3b — Royal spotlight (Rajputana only; opacity in globals) */}
+      <div className="rajput-bg-center-aura absolute inset-0 z-[3]" aria-hidden />
 
       {/* 4 — Theme grid */}
       <div
         className={cn(
-          "absolute inset-0 z-[4] grid-bg-lines opacity-[0.13] sm:opacity-[0.17]",
+          "absolute inset-0 z-[4] grid-bg-lines opacity-[0.17] sm:opacity-[0.22]",
           withFade && [
             "[mask-image:var(--page-grid-mask)] [-webkit-mask-image:var(--page-grid-mask)] [mask-size:100%_100%]",
           ],
@@ -68,11 +60,14 @@ export default function GridBackground({
         aria-hidden
       />
 
-      {/* 5 — Vignette */}
-      <div className="page-bg-vignette absolute inset-0 z-[5]" aria-hidden />
+      {/* 5 — Subtle moving light sweep */}
+      <div className="page-bg-light-sweep absolute inset-0 z-[5]" aria-hidden />
 
-      {/* 6 — Grain */}
-      <div className="page-bg-noise absolute inset-0 z-[6]" aria-hidden />
+      {/* 6 — Vignette */}
+      <div className="page-bg-vignette absolute inset-0 z-[6]" aria-hidden />
+
+      {/* 7 — Grain */}
+      <div className="page-bg-noise absolute inset-0 z-[7]" aria-hidden />
     </div>
   );
 }

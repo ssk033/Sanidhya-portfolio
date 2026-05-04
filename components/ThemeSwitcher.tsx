@@ -12,9 +12,13 @@ const THEMES: {
 }[] = [
   { id: "purple-gold", label: "Purple & Gold", primary: "#a855f7", secondary: "#eab308" },
   { id: "ironMan", label: "Iron Man", primary: "#c1121f", secondary: "#d4af37" },
-  { id: "captainAmerica", label: "Captain America", primary: "#1f3c88", secondary: "#b11226" },
   { id: "spiderMan", label: "Spider-Man", primary: "#c4161c", secondary: "#1f4fd8" },
-  { id: "thor", label: "Thor", primary: "#3b82f6", secondary: "#d4af37" },
+  {
+    id: "rajputana",
+    label: "Rajputana",
+    primary: "#8b0000",
+    secondary: "#d4af37",
+  },
 ];
 
 export default function ThemeSwitcher() {

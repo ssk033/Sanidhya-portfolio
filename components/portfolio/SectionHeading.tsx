@@ -5,7 +5,7 @@ type SectionHeadingProps = {
 /** Uniform section titles + thin theme accent (no idle glow). */
 export function SectionHeading({ title }: SectionHeadingProps) {
   return (
-    <div className="flex flex-col items-center gap-2.5 md:gap-3">
+    <div className="portfolio-section-heading flex flex-col items-center gap-2.5 md:gap-3">
       <h2 className="text-center text-lg font-semibold tracking-tight text-[var(--foreground)] md:text-xl md:tracking-tight">
         {title}
       </h2>

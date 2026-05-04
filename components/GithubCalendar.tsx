@@ -35,7 +35,7 @@ export default function GithubCalendar({ username, profileUrl }: GithubCalendarP
   }, [currentYear]);
 
   return (
-    <article className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md">
+    <article className="github-activity-panel rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md">
       <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
         <label className="flex items-center gap-2 text-sm text-[var(--muted)]">
           <span className="whitespace-nowrap">Year</span>
