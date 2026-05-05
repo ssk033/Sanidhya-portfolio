@@ -136,9 +136,9 @@ export default function Home() {
       </div>
       <main className="relative z-10 mx-auto max-w-5xl space-y-12 px-6 py-8 md:space-y-14 md:px-12 md:py-11">
         {/* Profile (left) + Skills (right) */}
-        <section className="grid grid-cols-1 items-center gap-10 md:grid-cols-2">
+        <section className="grid grid-cols-1 items-stretch gap-10 md:grid-cols-2">
           {/* Profile */}
-          <div className="flex flex-col items-start">
+          <div className="flex h-full flex-col items-start justify-center">
             <div className="portfolio-hero-avatar relative mb-4 h-36 w-36 shrink-0 overflow-hidden rounded-full border border-[var(--color-border)] bg-[var(--surface,var(--background))] shadow-[0_0_40px_-12px_var(--color-glow)] md:h-40 md:w-40">
               <Image
                 src="/iron-man.jpg"
@@ -190,7 +190,7 @@ export default function Home() {
               </p>
             </div>
 
-            <p className="mt-4 max-w-md text-justify [text-align-last:left] text-[14px] leading-snug text-[var(--muted)] md:text-[15px] md:leading-relaxed">
+            <p className="mt-4 max-w-xl text-justify [text-align-last:left] text-[14px] leading-relaxed text-[var(--muted)] md:text-[15px] md:leading-relaxed">
               I am a frontend-focused developer who enjoys building clean,
               user-friendly web experiences and continuously improving through
               real projects. I am open to work opportunities and comfortable
@@ -241,17 +241,17 @@ export default function Home() {
           </div>
 
           {/* Skills moved into hero right side */}
-          <div className="flex w-full items-center justify-center md:justify-end">
-            <aside className="portfolio-hero-skills-panel w-full max-w-xl rounded-2xl border border-[color-mix(in_srgb,var(--foreground)_10%,transparent)] bg-[color-mix(in_srgb,var(--surface,var(--background))_68%,transparent)] p-4 backdrop-blur-md md:p-5">
+          <div className="flex h-full w-full items-stretch">
+            <aside className="portfolio-hero-skills-panel flex h-full w-full min-h-[350px] flex-col rounded-2xl border border-[color-mix(in_srgb,var(--foreground)_10%,transparent)] bg-[color-mix(in_srgb,var(--surface,var(--background))_68%,transparent)] p-8 backdrop-blur-md">
               <h2 className="text-sm font-semibold tracking-wide text-[color-mix(in_srgb,var(--foreground)_66%,var(--muted))] md:text-base">
                 Skills
               </h2>
-              <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3">
+              <div className="mt-5 grid h-full w-full flex-1 grid-cols-2 auto-rows-fr items-stretch gap-5 md:grid-cols-3">
                 {SKILLS.slice(0, 12).map((skill) => (
                   <span
                     key={`hero-skill-${skill.name}`}
                     role="presentation"
-                    className="skill-btn inline-flex cursor-default items-center justify-center gap-1.5 overflow-hidden rounded-full border bg-[color-mix(in_srgb,var(--surface,var(--background))_88%,transparent)] px-3 py-1.5 text-[13px] font-medium leading-snug text-[var(--foreground)] backdrop-blur-sm sm:gap-2 sm:text-sm"
+                    className="skill-btn flex h-full w-full cursor-default items-center justify-center gap-2 overflow-hidden rounded-full border bg-[color-mix(in_srgb,var(--surface,var(--background))_88%,transparent)] px-4 py-2 text-[13px] font-medium leading-snug text-[var(--foreground)] backdrop-blur-sm sm:text-sm"
                   >
                     {skill.name === "CSS" ? (
                       <CSS3Logo className="h-4 w-4 shrink-0 sm:h-[18px] sm:w-[18px]" />

@@ -135,11 +135,7 @@ html[data-theme="rajputana"] {
   --grid-line: rgba(212, 175, 55, 0.1);
 
   --skill-glow: color-mix(in srgb, var(--color-accent) 42%, transparent);
-  --skill-glow-sub: color-mix(
-    in srgb,
-    var(--color-primary) 36%,
-    transparent
-  );
+  --skill-glow-sub: rgba(139, 30, 30, 0.22);
 
   --loader-fill: var(--color-accent);
   --loader-stroke: var(--color-primary);
@@ -835,6 +831,7 @@ html[data-theme="rajputana"] .portfolio-hero-skills-panel {
     );
   box-shadow:
     inset 0 1px 0 color-mix(in srgb, var(--color-accent) 18%, transparent),
+    0 0 25px rgba(212, 175, 55, 0.12),
     0 0 40px -22px var(--color-glow);
 }
 
